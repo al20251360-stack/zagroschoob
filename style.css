@@ -1,1 +1,761 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Vazirmatn", sans-serif;
+    background: #f7f5f0;
+    color: #24201c;
+    line-height: 1.8;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: min(1150px, 92%);
+    margin: auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(25, 20, 16, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.nav {
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.logo small {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #c9a66b;
+    direction: ltr;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.menu a {
+    color: #eee;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.menu a:hover {
+    color: #d4ad72;
+}
+
+.nav-btn {
+    background: #b7894f;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-size: 13px;
+    transition: .3s;
+}
+
+.nav-btn:hover {
+    background: #d0a565;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 28px;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 720px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(15,10,6,.35),
+            rgba(15,10,6,.82)
+        ),
+        url("images/hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    padding-top: 80px;
+}
+
+.hero-label {
+    color: #d2ad72;
+    font-size: 14px;
+    letter-spacing: 5px;
+    direction: ltr;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    max-width: 700px;
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1.3;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    display: block;
+    color: #d1aa6b;
+}
+
+.hero-text {
+    max-width: 650px;
+    color: #e8e3dc;
+    font-size: 18px;
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 27px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.primary {
+    background: #b7894f;
+    color: white;
+}
+
+.primary:hover {
+    background: #d0a565;
+    transform: translateY(-3px);
+}
+
+.secondary {
+    border: 1px solid rgba(255,255,255,.5);
+    color: white;
+}
+
+.secondary:hover {
+    background: white;
+    color: #241b15;
+}
+
+
+/* ================= SECTIONS ================= */
+
+section {
+    padding: 100px 0;
+}
+
+.section-title {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 55px;
+}
+
+.section-title span,
+.section-label {
+    color: #a67842;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    margin: 8px 0 12px;
+}
+
+.section-title p {
+    color: #777;
+}
+
+
+/* ================= SERVICES ================= */
+
+.services {
+    background: #f7f5f0;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.service-card {
+    background: white;
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #eee6dc;
+    transition: .3s;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+}
+
+.icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f1e6d6;
+    color: #a67842;
+    font-size: 25px;
+}
+
+.service-card h3 {
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* ================= PRODUCTS ================= */
+
+.products {
+    background: #fff;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    transition: .3s;
+}
+
+.product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.1);
+}
+
+.product-image {
+    height: 260px;
+    display: flex;
+    align-items: end;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.product-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,.65));
+}
+
+.product-image span {
+    position: relative;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.thermo {
+    background-image:
+        url("images/thermowall.jpg");
+}
+
+.marble {
+    background-image:
+        url("images/marble.jpg");
+}
+
+.wall {
+    background-image:
+        url("images/wall.jpg");
+}
+
+.wood {
+    background-image:
+        url("images/wood-panel.jpg");
+}
+
+.product-info {
+    padding: 22px;
+}
+
+.product-info h3 {
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.product-info a {
+    color: #a67842;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* ================= ABOUT ================= */
+
+.about {
+    background: #201914;
+    color: white;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-image {
+    min-height: 500px;
+    background:
+        linear-gradient(rgba(40,25,15,.15), rgba(40,25,15,.55)),
+        url("images/about.jpg");
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+}
+
+.about-box {
+    text-align: center;
+    border: 1px solid rgba(255,255,255,.5);
+    padding: 30px 45px;
+    backdrop-filter: blur(4px);
+}
+
+.about-box strong {
+    display: block;
+    font-size: 30px;
+    letter-spacing: 6px;
+}
+
+.about-box span {
+    color: #d1aa6b;
+    letter-spacing: 8px;
+    font-size: 12px;
+}
+
+.about-content h2 {
+    font-size: 44px;
+    line-height: 1.4;
+    margin: 10px 0 25px;
+}
+
+.about-content p {
+    color: #c8c0b7;
+    margin-bottom: 15px;
+}
+
+.about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.about-features div {
+    border-right: 2px solid #b7894f;
+    padding-right: 12px;
+    color: #ddd;
+}
+
+
+/* ================= GALLERY ================= */
+
+.gallery {
+    background: #f7f5f0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-auto-rows: 220px;
+    gap: 15px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item.large {
+    grid-row: span 2;
+}
+
+.gallery-placeholder {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 18px;
+    background:
+        linear-gradient(135deg, #71583f, #241b15);
+    transition: .5s;
+}
+
+.gallery-item:hover .gallery-placeholder {
+    transform: scale(1.05);
+}
+
+
+/* ================= CTA ================= */
+
+.cta {
+    text-align: center;
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(35,24,16,.85),
+            rgba(35,24,16,.9)
+        ),
+        url("images/cta.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.cta h2 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    color: #ddd;
+    margin-bottom: 25px;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact {
+    background: white;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.contact-card {
+    text-align: center;
+    padding: 35px 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    display: grid;
+    place-items: center;
+    background: #f0e4d3;
+    border-radius: 50%;
+    color: #a67842;
+    font-size: 24px;
+}
+
+.contact-card h3 {
+    margin-bottom: 7px;
+}
+
+.contact-card p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.contact-card a {
+    color: #a67842;
+    font-weight: 700;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer {
+    background: #17120f;
+    color: #ddd;
+    padding-top: 65px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 50px;
+}
+
+.footer-logo {
+    color: white;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.footer-logo small {
+    display: block;
+    color: #c49b61;
+    font-size: 9px;
+    letter-spacing: 4px;
+    direction: ltr;
+}
+
+.footer p {
+    color: #999;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.footer h3 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.footer-grid a {
+    display: block;
+    color: #aaa;
+    font-size: 14px;
+    margin: 5px 0;
+    transition: .3s;
+}
+
+.footer-grid a:hover {
+    color: #c49b61;
+}
+
+.copyright {
+    border-top: 1px solid rgba(255,255,255,.08);
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* ================= FLOATING BUTTONS ================= */
+
+.floating-call,
+.floating-whatsapp {
+    position: fixed;
+    z-index: 999;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    bottom: 22px;
+}
+
+.floating-call {
+    left: 22px;
+    background: #a67842;
+}
+
+.floating-whatsapp {
+    left: 88px;
+    background: #287d45;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+    .menu {
+        position: absolute;
+        top: 82px;
+        right: 0;
+        width: 100%;
+        background: #211914;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px 6%;
+        gap: 0;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu a {
+        padding: 13px 0;
+        border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .nav-btn {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .service-grid,
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    section {
+        padding: 70px 0;
+    }
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-text {
+        font-size: 15px;
+    }
+
+    .section-title h2 {
+        font-size: 29px;
+    }
+
+    .service-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-image {
+        min-height: 350px;
+    }
+
+    .about-content h2 {
+        font-size: 34px;
+    }
+
+    .about-features {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 180px;
+    }
+
+    .gallery-item.large {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .cta h2 {
+        font-size: 31px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .floating-whatsapp {
+        left: 85px;
+    }
+}
