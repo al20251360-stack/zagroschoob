@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://al20251360-stack.github.io/zagroschoob/sitemap.xml
