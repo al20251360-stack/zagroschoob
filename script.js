@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ================================
-       اسلایدر صفحه اصلی
-    ================================= */
+    /* ==============================
+       اسلایدر
+    ============================== */
 
     const slides = document.querySelectorAll(".slide");
 
@@ -11,72 +11,53 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentSlide = 0;
 
         function showSlide(index) {
-
             slides.forEach((slide, i) => {
-                slide.classList.toggle(
-                    "active",
-                    i === index
-                );
+                slide.classList.toggle("active", i === index);
             });
         }
 
         showSlide(0);
 
         setInterval(() => {
-
-            currentSlide =
-                (currentSlide + 1) % slides.length;
-
+            currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
-
         }, 4500);
     }
 
 
-    /* ================================
-       سیستم بزرگ‌نمایی تصاویر
-    ================================= */
+    /* ==============================
+       بزرگ‌نمایی عکس
+    ============================== */
 
     let lightbox = null;
 
 
     function closeLightbox() {
 
-        if (!lightbox) {
-            return;
-        }
+        if (!lightbox) return;
 
         lightbox.remove();
-
         lightbox = null;
 
         document.body.style.overflow = "";
+
+        history.replaceState(
+            null,
+            "",
+            window.location.href
+                .replace("#image-preview", "")
+        );
     }
 
 
-    function openLightbox(image) {
+    function openLightbox(image, title = "", description = "") {
 
         closeLightbox();
 
 
-        /* ساخت پنجره */
+        lightbox = document.createElement("div");
 
-        lightbox =
-            document.createElement("div");
-
-        lightbox.className =
-            "image-lightbox";
-
-
-        lightbox.setAttribute(
-            "role",
-            "dialog"
-        );
-
-        lightbox.setAttribute(
-            "aria-modal",
-            "true"
-        );
+        lightbox.className = "image-lightbox";
 
 
         /* تصویر بزرگ */
@@ -84,15 +65,44 @@ document.addEventListener("DOMContentLoaded", () => {
         const bigImage =
             document.createElement("img");
 
-
         bigImage.src =
-            image.currentSrc ||
-            image.src;
-
+            image.currentSrc || image.src;
 
         bigImage.alt =
-            image.alt ||
-            "زاگرس چوب کیانشهر";
+            image.alt || "زاگرس چوب کیانشهر";
+
+
+        /* اطلاعات عکس */
+
+        const info =
+            document.createElement("div");
+
+        info.className = "lightbox-info";
+
+
+        if (title) {
+
+            const titleElement =
+                document.createElement("h3");
+
+            titleElement.textContent = title;
+
+            info.appendChild(titleElement);
+        }
+
+
+        if (description) {
+
+            const descriptionElement =
+                document.createElement("p");
+
+            descriptionElement.textContent =
+                description;
+
+            info.appendChild(
+                descriptionElement
+            );
+        }
 
 
         /* دکمه بستن */
@@ -100,18 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const closeButton =
             document.createElement("button");
 
-
-        closeButton.type =
-            "button";
-
+        closeButton.type = "button";
 
         closeButton.className =
             "lightbox-close";
 
-
-        closeButton.textContent =
-            "×";
-
+        closeButton.textContent = "×";
 
         closeButton.setAttribute(
             "aria-label",
@@ -119,35 +123,56 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* اضافه کردن */
+        /* ساخت پنجره */
 
-        lightbox.appendChild(
-            bigImage
+        lightbox.appendChild(bigImage);
+
+        if (title || description) {
+            lightbox.appendChild(info);
+        }
+
+        lightbox.appendChild(closeButton);
+
+        document.body.appendChild(lightbox);
+
+
+        /* جلوگیری از اسکرول صفحه */
+
+        document.body.style.overflow = "hidden";
+
+
+        /* تغییر آدرس برای دکمه Back گوشی */
+
+        history.pushState(
+            { imagePreview: true },
+            "",
+            "#image-preview"
         );
 
-        lightbox.appendChild(
-            closeButton
-        );
 
-
-        document.body.appendChild(
-            lightbox
-        );
-
-
-        document.body.style.overflow =
-            "hidden";
-
-
-        /* بستن با دکمه */
+        /* بستن */
 
         closeButton.addEventListener(
             "click",
-            closeLightbox
+            () => {
+
+                if (
+                    window.location.hash ===
+                    "#image-preview"
+                ) {
+
+                    history.back();
+
+                } else {
+
+                    closeLightbox();
+
+                }
+            }
         );
 
 
-        /* بستن با لمس قسمت مشکی */
+        /* لمس قسمت مشکی */
 
         lightbox.addEventListener(
             "click",
@@ -157,27 +182,63 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.target === lightbox
                 ) {
 
-                    closeLightbox();
+                    if (
+                        window.location.hash ===
+                        "#image-preview"
+                    ) {
 
+                        history.back();
+
+                    } else {
+
+                        closeLightbox();
+
+                    }
                 }
-
             }
         );
-
-
-        /* فوکوس روی دکمه */
-
-        setTimeout(() => {
-
-            closeButton.focus();
-
-        }, 50);
     }
 
 
-    /* ================================
-       بزرگ کردن لوگوی سایت
-    ================================= */
+    /* ==============================
+       دکمه Back گوشی
+    ============================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            if (lightbox) {
+                closeLightbox();
+            }
+
+        }
+    );
+
+
+    /* ==============================
+       ESC
+    ============================== */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape" &&
+                lightbox
+            ) {
+
+                closeLightbox();
+
+            }
+        }
+    );
+
+
+    /* ==============================
+       بزرگ کردن لوگو
+    ============================== */
 
     const logo =
         document.querySelector(
@@ -187,32 +248,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (logo) {
 
-        logo.style.cursor =
-            "zoom-in";
-
+        logo.style.cursor = "zoom-in";
 
         logo.addEventListener(
             "click",
             (event) => {
 
-                /* جلوگیری از رفتن به ابتدای صفحه */
-
                 event.preventDefault();
-
                 event.stopPropagation();
 
-
-                openLightbox(logo);
+                openLightbox(
+                    logo,
+                    "زاگرس چوب کیانشهر",
+                    "ZAGROS WOOD"
+                );
 
             }
         );
     }
 
 
-    /* ================================
-       گالری تصاویر
-       دریافت تمام تصاویر از GitHub
-    ================================= */
+    /* ==============================
+       گالری
+    ============================== */
 
     const gallery =
         document.querySelector(
@@ -220,177 +278,160 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    if (gallery) {
+    if (!gallery) return;
 
 
-        const githubAPI =
-            "https://api.github.com/repos/al20251360-stack/zagroschoob/contents/images";
+    const githubAPI =
+        "https://api.github.com/repos/al20251360-stack/zagroschoob/contents/images";
 
 
-        /* لوگو نباید وارد گالری شود */
+    /* لوگو داخل گالری نباشد */
 
-        const excludedFiles = [
-            "logo.png"
-        ];
-
-
-        /* فرمت‌های تصویری */
-
-        const extensions = [
-            ".jpg",
-            ".jpeg",
-            ".png",
-            ".webp"
-        ];
+    const excludedFiles = [
+        "logo.png"
+    ];
 
 
-        fetch(githubAPI)
+    const extensions = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp"
+    ];
 
 
-            .then(response => {
+    fetch(githubAPI)
 
-                if (!response.ok) {
+        .then(response => {
 
-                    throw new Error(
-                        "GitHub API Error"
+            if (!response.ok) {
+                throw new Error(
+                    "خطا در دریافت تصاویر"
+                );
+            }
+
+            return response.json();
+        })
+
+
+        .then(files => {
+
+
+            /* فقط تصاویر */
+
+            let images =
+                files.filter(file => {
+
+                    if (
+                        file.type !== "file"
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        excludedFiles.includes(
+                            file.name
+                        )
+                    ) {
+                        return false;
+                    }
+
+                    const name =
+                        file.name.toLowerCase();
+
+                    return extensions.some(
+                        ext =>
+                            name.endsWith(ext)
                     );
-
-                }
-
-                return response.json();
-
-            })
+                });
 
 
-            .then(files => {
+            /* ==============================
+               حذف JPG در صورت وجود WebP
+            ============================== */
 
+            const webpNames =
+                new Set(
 
-                /* انتخاب تصاویر */
+                    images
 
-                let images =
-                    files.filter(file => {
+                        .filter(file =>
+                            file.name
+                                .toLowerCase()
+                                .endsWith(".webp")
+                        )
 
-                        if (
-                            file.type !==
-                            "file"
-                        ) {
-                            return false;
-                        }
-
-
-                        if (
-                            excludedFiles.includes(
-                                file.name
-                            )
-                        ) {
-                            return false;
-                        }
-
-
-                        const name =
-                            file.name.toLowerCase();
-
-
-                        return extensions.some(
-                            extension =>
-                                name.endsWith(
-                                    extension
-                                )
-                        );
-
-                    });
-
-
-                /* =========================
-                   حذف JPG تکراری
-                   اگر WebP آن وجود دارد
-                ========================= */
-
-                const webpFiles =
-                    new Set(
-
-                        images
-
-                            .filter(file =>
-                                file.name
-                                    .toLowerCase()
-                                    .endsWith(
-                                        ".webp"
-                                    )
-                            )
-
-                            .map(file =>
-                                file.name
-                                    .toLowerCase()
-                                    .replace(
-                                        ".webp",
-                                        ""
-                                    )
-                            )
-                    );
-
-
-                images =
-                    images.filter(file => {
-
-                        const name =
-                            file.name.toLowerCase();
-
-
-                        if (
-                            name.endsWith(".jpg") ||
-                            name.endsWith(".jpeg")
-                        ) {
-
-                            const base =
-                                name.replace(
-                                    /\.(jpg|jpeg)$/,
+                        .map(file =>
+                            file.name
+                                .toLowerCase()
+                                .replace(
+                                    ".webp",
                                     ""
-                                );
-
-
-                            if (
-                                webpFiles.has(base)
-                            ) {
-
-                                return false;
-
-                            }
-
-                        }
-
-
-                        return true;
-
-                    });
-
-
-                /* مرتب‌سازی */
-
-                images.sort(
-                    (a, b) =>
-                        a.name.localeCompare(
-                            b.name,
-                            "fa",
-                            {
-                                numeric: true,
-                                sensitivity:
-                                    "base"
-                            }
+                                )
                         )
                 );
 
 
-                /* پاک کردن گالری */
+            images =
+                images.filter(file => {
 
-                gallery.innerHTML = "";
+                    const name =
+                        file.name.toLowerCase();
 
 
-                /* =========================
-                   ساخت کارت تصاویر
-                ========================= */
+                    if (
+                        name.endsWith(".jpg") ||
+                        name.endsWith(".jpeg")
+                    ) {
 
-                images.forEach(file => {
+                        const baseName =
+                            name.replace(
+                                /\.(jpg|jpeg)$/,
+                                ""
+                            );
+
+
+                        if (
+                            webpNames.has(
+                                baseName
+                            )
+                        ) {
+                            return false;
+                        }
+                    }
+
+
+                    return true;
+
+                });
+
+
+            /* مرتب‌سازی */
+
+            images.sort(
+                (a, b) =>
+                    a.name.localeCompare(
+                        b.name,
+                        "fa",
+                        {
+                            numeric: true,
+                            sensitivity: "base"
+                        }
+                    )
+            );
+
+
+            /* پاک کردن گالری */
+
+            gallery.innerHTML = "";
+
+
+            /* ==============================
+               ایجاد تصاویر
+            ============================== */
+
+            images.forEach(
+                (file, index) => {
 
 
                     const picture =
@@ -410,7 +451,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     image.alt =
-                        "نمونه کار زاگرس چوب کیانشهر";
+                        "زاگرس چوب کیانشهر - نمونه کار " +
+                        (index + 1);
 
 
                     image.loading =
@@ -435,14 +477,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
 
-                    /* بزرگ کردن */
+                    /* کلیک روی عکس */
 
                     image.addEventListener(
                         "click",
                         () => {
 
                             openLightbox(
-                                image
+                                image,
+                                "زاگرس چوب کیانشهر",
+                                "ZAGROS WOOD"
                             );
 
                         }
@@ -451,54 +495,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
-                /* اگر هیچ تصویری نبود */
+            /* تعداد عکس */
 
-                if (
-                    images.length === 0
-                ) {
-
-                    gallery.innerHTML =
-                        "<p style='text-align:center;'>تصویری برای نمایش پیدا نشد.</p>";
-
-                }
-
-            })
+            console.log(
+                "تعداد تصاویر گالری:",
+                images.length
+            );
 
 
-            .catch(error => {
-
-                console.error(
-                    "خطا در دریافت تصاویر:",
-                    error
-                );
-
-
-                gallery.innerHTML =
-                    "<p style='text-align:center;'>در بارگذاری تصاویر مشکلی پیش آمد.</p>";
-
-            });
-
-    }
-
-
-    /* ================================
-       بستن با کلید Escape
-    ================================= */
-
-    document.addEventListener(
-        "keydown",
-        (event) => {
+            /* هیچ عکس */
 
             if (
-                event.key === "Escape" &&
-                lightbox
+                images.length === 0
             ) {
 
-                closeLightbox();
+                gallery.innerHTML =
+                    "<p class='gallery-error'>تصویری برای نمایش پیدا نشد.</p>";
 
             }
 
-        }
-    );
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "خطا:",
+                error
+            );
+
+
+            gallery.innerHTML =
+                "<p class='gallery-error'>در بارگذاری تصاویر مشکلی پیش آمد.</p>";
+
+        });
 
 });
