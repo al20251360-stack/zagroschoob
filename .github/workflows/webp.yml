@@ -1,14 +1,9 @@
-name: Convert Images to WebP
+name: Convert All Images to WebP
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'images/**/*.jpg'
-      - 'images/**/*.jpeg'
-      - 'images/**/*.JPG'
-      - 'images/**/*.JPEG'
   workflow_dispatch:
 
 permissions:
@@ -27,21 +22,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y webp
 
-      - name: تبدیل عکس‌ها به WebP
+      - name: تبدیل همه JPG و JPEG ها
         run: |
-          find images -type f \( \
-            -iname "*.jpg" -o \
-            -iname "*.jpeg" \
-          \) -print0 | while IFS= read -r -d '' file
+          find images -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) -print0 |
+          while IFS= read -r -d '' file
           do
             output="${file%.*}.webp"
 
-            echo "در حال تبدیل: $file"
-
+            echo "تبدیل: $file"
             cwebp -quiet -q 80 "$file" -o "$output"
           done
 
-      - name: ذخیره فایل‌های WebP در GitHub
+      - name: ذخیره WebP ها در GitHub
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -49,8 +41,8 @@ jobs:
           git add images/*.webp
 
           if git diff --cached --quiet; then
-            echo "فایل WebP جدیدی برای ذخیره وجود ندارد."
+            echo "هیچ WebP جدیدی ایجاد نشد."
           else
-            git commit -m "Convert images to optimized WebP"
+            git commit -m "Convert all images to WebP"
             git push
           fi
