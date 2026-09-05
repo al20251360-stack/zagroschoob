@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================
+    /* =========================
        اسلایدر
-    ========================================= */
+    ========================= */
 
     const slides = document.querySelectorAll(".slide");
 
@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================
+    /* =========================
        بزرگنمایی تصاویر
-    ========================================= */
+    ========================= */
 
     let lightbox = null;
     let lightboxOpen = false;
@@ -39,15 +39,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!lightbox) return;
 
         lightbox.remove();
+
         lightbox = null;
         lightboxOpen = false;
 
         document.body.style.overflow = "";
 
-        if (
-            window.location.hash === "#image-preview"
-        ) {
+        if (window.location.hash === "#image-preview") {
+
             ignoreNextPopState = true;
+
             history.back();
         }
     }
@@ -56,24 +57,22 @@ document.addEventListener("DOMContentLoaded", () => {
     function openLightbox(image, title, description) {
 
         if (lightbox) {
+
             lightbox.remove();
+
             lightbox = null;
         }
 
         lightboxOpen = true;
 
-        /* پنجره */
-
         lightbox = document.createElement("div");
 
-        lightbox.className =
-            "image-lightbox";
+        lightbox.className = "image-lightbox";
 
 
         /* عکس بزرگ */
 
-        const bigImage =
-            document.createElement("img");
+        const bigImage = document.createElement("img");
 
         bigImage.src =
             image.currentSrc ||
@@ -90,8 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* اطلاعات محصول */
 
-        const info =
-            document.createElement("div");
+        const info = document.createElement("div");
 
         info.className =
             "lightbox-info";
@@ -105,9 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             titleElement.textContent =
                 title;
 
-            info.appendChild(
-                titleElement
-            );
+            info.appendChild(titleElement);
         }
 
 
@@ -119,9 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             descriptionElement.textContent =
                 description;
 
-            info.appendChild(
-                descriptionElement
-            );
+            info.appendChild(descriptionElement);
         }
 
 
@@ -130,12 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const closeButton =
             document.createElement("button");
 
-        closeButton.type = "button";
+        closeButton.type =
+            "button";
 
         closeButton.className =
             "lightbox-close";
 
-        closeButton.textContent = "×";
+        closeButton.textContent =
+            "×";
 
         closeButton.setAttribute(
             "aria-label",
@@ -143,52 +139,52 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* اضافه کردن عناصر */
+        /* ساخت پنجره */
 
         lightbox.appendChild(
             bigImage
         );
 
         if (title || description) {
-            lightbox.appendChild(info);
+
+            lightbox.appendChild(
+                info
+            );
         }
 
         lightbox.appendChild(
             closeButton
         );
 
-
         document.body.appendChild(
             lightbox
         );
-
 
         document.body.style.overflow =
             "hidden";
 
 
-        /* برای دکمه برگشت گوشی */
+        /* تغییر آدرس برای دکمه Back */
 
         history.pushState(
-            {
-                imagePreview: true
-            },
+            { imagePreview: true },
             "",
             "#image-preview"
         );
 
 
-        /* دکمه × */
+        /* بستن با ضربدر */
 
         closeButton.addEventListener(
             "click",
             () => {
+
                 history.back();
             }
         );
 
 
-        /* لمس فضای مشکی */
+        /* بستن با لمس فضای خالی */
 
         lightbox.addEventListener(
             "click",
@@ -197,34 +193,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (
                     event.target === lightbox
                 ) {
+
                     history.back();
                 }
-
             }
         );
     }
 
 
-    /* =========================================
+    /* =========================
        دکمه Back گوشی
-    ========================================= */
+    ========================= */
 
     window.addEventListener(
         "popstate",
         () => {
 
             if (ignoreNextPopState) {
+
                 ignoreNextPopState = false;
+
                 return;
             }
 
             if (lightboxOpen) {
 
                 if (lightbox) {
+
                     lightbox.remove();
                 }
 
                 lightbox = null;
+
                 lightboxOpen = false;
 
                 document.body.style.overflow = "";
@@ -233,9 +233,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =========================================
+    /* =========================
        کلید Escape
-    ========================================= */
+    ========================= */
 
     document.addEventListener(
         "keydown",
@@ -245,34 +245,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.key === "Escape" &&
                 lightboxOpen
             ) {
+
                 history.back();
             }
-
         }
     );
 
 
-    /* =========================================
-       لوگوی سایت
-    ========================================= */
+    /* =========================
+       لوگو
+    ========================= */
 
     const logo =
         document.querySelector(
             ".logo-link img"
         );
 
-
     if (logo) {
 
         logo.style.cursor =
             "zoom-in";
-
 
         logo.addEventListener(
             "click",
             (event) => {
 
                 event.preventDefault();
+
                 event.stopPropagation();
 
                 openLightbox(
@@ -280,21 +279,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     "زاگرس چوب کیانشهر",
                     "ZAGROS WOOD"
                 );
-
             }
         );
     }
 
 
-    /* =========================================
-       خدمات و محصولات
-    ========================================= */
+    /* =========================
+       محصولات معمولی
+    ========================= */
 
     const serviceCards =
         document.querySelectorAll(
             ".service-card"
         );
-
 
     serviceCards.forEach(
         (card) => {
@@ -304,21 +301,68 @@ document.addEventListener("DOMContentLoaded", () => {
                     ".service-image"
                 );
 
-
             const title =
-                card.querySelector(
-                    "h3"
-                );
-
+                card.querySelector("h3");
 
             const description =
-                card.querySelector(
-                    "p"
-                );
-
+                card.querySelector("p");
 
             if (!image) return;
 
+            image.style.cursor =
+                "zoom-in";
+
+            image.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    openLightbox(
+                        image,
+                        title
+                            ? title.textContent.trim()
+                            : "زاگرس چوب کیانشهر",
+
+                        description
+                            ? description.textContent.trim()
+                            : "ZAGROS WOOD"
+                    );
+                }
+            );
+        }
+    );
+
+
+    /* =========================
+       محصولات فروشگاه
+       مهم: این قسمت مشکل قبلی را حل می‌کند
+    ========================= */
+
+    const shopCards =
+        document.querySelectorAll(
+            ".shop-card"
+        );
+
+    shopCards.forEach(
+        (card) => {
+
+            const image =
+                card.querySelector(
+                    ".service-image"
+                );
+
+            const title =
+                card.querySelector("h3");
+
+            const description =
+                card.querySelector(
+                    ".shop-description"
+                );
+
+            if (!image) return;
 
             image.style.cursor =
                 "zoom-in";
@@ -329,35 +373,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 (event) => {
 
                     event.preventDefault();
-                    event.stopPropagation();
 
+                    event.stopPropagation();
 
                     openLightbox(
                         image,
+
                         title
                             ? title.textContent.trim()
                             : "زاگرس چوب کیانشهر",
+
                         description
                             ? description.textContent.trim()
-                            : "ZAGROS WOOD"
+                            : "محصولات زاگرس چوب"
                     );
-
                 }
             );
-
         }
     );
 
 
-    /* =========================================
+    /* =========================
        گالری
-    ========================================= */
+    ========================= */
 
     const gallery =
         document.querySelector(
             ".gallery-grid"
         );
-
 
     if (!gallery) return;
 
@@ -366,14 +409,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://api.github.com/repos/al20251360-stack/zagroschoob/contents/images";
 
 
-    /* لوگو وارد گالری نشود */
-
     const excludedFiles = [
         "logo.png"
     ];
 
-
-    /* فرمت‌های تصویری */
 
     const extensions = [
         ".jpg",
@@ -388,6 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => {
 
             if (!response.ok) {
+
                 throw new Error(
                     "GitHub API error"
                 );
@@ -396,103 +436,106 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
 
-
         .then(files => {
 
-
-            /* فقط تصاویر */
-
             let images =
-                files.filter(file => {
+                files.filter(
+                    file => {
 
-                    if (
-                        file.type !== "file"
-                    ) {
-                        return false;
-                    }
+                        if (
+                            file.type !==
+                            "file"
+                        ) {
+                            return false;
+                        }
 
-
-                    if (
-                        excludedFiles.includes(
-                            file.name
-                        )
-                    ) {
-                        return false;
-                    }
-
-
-                    const name =
-                        file.name.toLowerCase();
-
-
-                    return extensions.some(
-                        extension =>
-                            name.endsWith(
-                                extension
+                        if (
+                            excludedFiles.includes(
+                                file.name
                             )
-                    );
+                        ) {
+                            return false;
+                        }
 
-                });
+                        const name =
+                            file.name.toLowerCase();
+
+                        return extensions.some(
+                            extension =>
+                                name.endsWith(
+                                    extension
+                                )
+                        );
+                    }
+                );
 
 
-            /* =================================
-               حذف JPG در صورت وجود WebP
-            ================================= */
+            /* جلوگیری از نمایش
+               JPG و WebP تکراری */
 
             const webpNames =
                 new Set(
 
                     images
 
-                        .filter(file =>
-                            file.name
-                                .toLowerCase()
-                                .endsWith(".webp")
+                        .filter(
+                            file =>
+                                file.name
+                                    .toLowerCase()
+                                    .endsWith(
+                                        ".webp"
+                                    )
                         )
 
-                        .map(file =>
-                            file.name
-                                .toLowerCase()
-                                .replace(
-                                    ".webp",
-                                    ""
-                                )
+                        .map(
+                            file =>
+                                file.name
+                                    .toLowerCase()
+                                    .replace(
+                                        ".webp",
+                                        ""
+                                    )
                         )
                 );
 
 
             images =
-                images.filter(file => {
+                images.filter(
+                    file => {
 
-                    const name =
-                        file.name.toLowerCase();
-
-
-                    if (
-                        name.endsWith(".jpg") ||
-                        name.endsWith(".jpeg")
-                    ) {
-
-                        const baseName =
-                            name.replace(
-                                /\.(jpg|jpeg)$/,
-                                ""
-                            );
+                        const name =
+                            file.name
+                                .toLowerCase();
 
 
                         if (
-                            webpNames.has(
-                                baseName
+                            name.endsWith(
+                                ".jpg"
+                            ) ||
+                            name.endsWith(
+                                ".jpeg"
                             )
                         ) {
-                            return false;
+
+                            const baseName =
+                                name.replace(
+                                    /\.(jpg|jpeg)$/,
+                                    ""
+                                );
+
+                            if (
+                                webpNames.has(
+                                    baseName
+                                )
+                            ) {
+
+                                return false;
+                            }
                         }
+
+                        return true;
                     }
-
-
-                    return true;
-
-                });
+                );
 
 
             /* مرتب‌سازی */
@@ -510,14 +553,10 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            /* پاک کردن گالری */
-
             gallery.innerHTML = "";
 
 
-            /* =================================
-               ساخت تصاویر گالری
-            ================================= */
+            /* ساخت گالری */
 
             images.forEach(
                 (file, index) => {
@@ -526,7 +565,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         document.createElement(
                             "picture"
                         );
-
 
                     const image =
                         document.createElement(
@@ -559,13 +597,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         image
                     );
 
-
                     gallery.appendChild(
                         picture
                     );
 
-
-                    /* بزرگنمایی گالری */
 
                     image.addEventListener(
                         "click",
@@ -576,11 +611,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 "زاگرس چوب کیانشهر",
                                 "ZAGROS WOOD | نمونه کار و محصولات"
                             );
-
                         }
                     );
-
-                });
+                }
+            );
 
 
             console.log(
@@ -595,23 +629,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 gallery.innerHTML =
                     "<p class='gallery-error'>تصویری برای نمایش پیدا نشد.</p>";
-
             }
 
         })
 
-
         .catch(error => {
 
             console.error(
-                "خطا در دریافت تصاویر:",
+                "خطا:",
                 error
             );
 
-
             gallery.innerHTML =
                 "<p class='gallery-error'>در بارگذاری تصاویر مشکلی پیش آمد.</p>";
-
         });
 
 });
