@@ -13,7 +13,8 @@ body {
     direction: rtl;
     background: #f7f4f0;
     color: #332015;
-    line-height: 1.8;
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 a {
@@ -27,46 +28,47 @@ a {
     margin: auto;
 }
 
-/* ===== Header ===== */
+/* ================= HEADER ================= */
 
 header {
     background: #4b2e1f;
     color: white;
     text-align: center;
-    padding: 25px 15px;
+    padding: 18px 12px;
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
+    width: 82px;
+    height: 82px;
     object-fit: contain;
     border-radius: 50%;
     display: block;
-    margin: 0 auto 12px;
+    margin: 0 auto 8px;
 }
 
 header h1 {
-    font-size: 32px;
-    margin-bottom: 5px;
+    font-size: 28px;
+    margin-bottom: 2px;
 }
 
 .brand-name {
     color: #d9b47a;
-    font-size: 20px;
-    letter-spacing: 2px;
+    font-size: 18px;
+    letter-spacing: 1.5px;
 }
 
 nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 6px;
+    margin-top: 13px;
 }
 
 nav a {
-    padding: 8px 14px;
-    border-radius: 8px;
+    padding: 6px 11px;
+    border-radius: 7px;
+    font-size: 15px;
     transition: 0.3s;
 }
 
@@ -74,23 +76,23 @@ nav a:hover {
     background: #6a432c;
 }
 
-/* ===== Hero ===== */
+/* ================= HERO ================= */
 
 .hero {
     background: #4b2e1f;
     color: white;
     text-align: center;
-    padding: 25px 15px 50px;
+    padding: 15px 12px 30px;
 }
 
 .slider {
     width: 100%;
     max-width: 1000px;
-    height: 430px;
+    height: 360px;
     margin: auto;
     overflow: hidden;
-    border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
 }
 
 .slide {
@@ -106,37 +108,37 @@ nav a:hover {
 
 .hero-content {
     max-width: 800px;
-    margin: 30px auto 0;
+    margin: 20px auto 0;
 }
 
 .hero h2 {
-    font-size: 34px;
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin-bottom: 5px;
 }
 
 .hero p {
-    font-size: 18px;
+    font-size: 17px;
     color: #eee;
 }
 
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 13px;
 }
 
-/* ===== Buttons ===== */
+/* ================= BUTTONS ================= */
 
 .btn {
     display: inline-block;
     background: #8a542f;
     color: white;
-    padding: 12px 24px;
-    border-radius: 10px;
-    margin: 5px;
-    font-size: 16px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    margin: 3px;
+    font-size: 15px;
     transition: 0.3s;
 }
 
@@ -153,118 +155,121 @@ nav a:hover {
     background: #555;
 }
 
-/* ===== Sections ===== */
+/* ================= SECTIONS ================= */
 
 section {
     width: 92%;
     max-width: 1100px;
     margin: auto;
-    padding: 60px 0;
+    padding: 40px 0;
 }
 
 section h2 {
     text-align: center;
-    font-size: 30px;
+    font-size: 27px;
     color: #4b2e1f;
-    margin-bottom: 12px;
+    margin-bottom: 7px;
 }
 
 .section-intro {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #666;
 }
 
-/* ===== Services ===== */
+/* ================= SERVICES ================= */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 15px;
 }
 
 .card {
     background: white;
-    padding: 18px;
-    border-radius: 15px;
+    padding: 12px;
+    border-radius: 13px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
     transition: 0.3s;
     overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
 }
 
 .card h3 {
     color: #6b4027;
-    font-size: 20px;
-    margin: 8px 0;
+    font-size: 18px;
+    margin: 5px 0;
 }
 
 .card p {
     color: #666;
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-/* ===== عکس خدمات ===== */
+/* ================= SERVICE IMAGES ================= */
 
 .service-image {
     width: 100%;
-    height: 170px;
+    height: 145px;
     object-fit: cover;
-    border-radius: 10px;
+    object-position: center;
+    border-radius: 9px;
     display: block;
 }
 
-/* ===== About ===== */
+/* ================= ABOUT ================= */
 
 .about {
     background: #eadfd4;
     max-width: none;
     width: 100%;
     text-align: center;
-    padding: 55px 8%;
+    padding: 40px 8%;
 }
 
 .about p {
     max-width: 800px;
-    margin: 10px auto;
-    font-size: 17px;
+    margin: 8px auto;
+    font-size: 16px;
 }
 
-/* ===== Gallery ===== */
+/* ================= GALLERY ================= */
 
 .gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
 .gallery img {
     width: 100%;
-    height: 220px;
+    height: 190px;
     object-fit: cover;
-    border-radius: 12px;
+    object-position: center;
+    border-radius: 10px;
     display: block;
     transition: 0.3s;
     cursor: pointer;
 }
 
 .gallery img:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
-/* ===== Contact ===== */
+/* ================= CONTACT ================= */
 
 .contact {
     background: white;
-    border-radius: 20px;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    padding: 45px 25px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 35px 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
 }
 
 .contact-info {
@@ -274,7 +279,7 @@ section h2 {
 }
 
 .contact-info p {
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -284,74 +289,75 @@ section h2 {
 }
 
 .address {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
-/* ===== Google Map ===== */
+/* ================= GOOGLE MAP ================= */
 
 .map-container {
     max-width: 900px;
-    margin: 30px auto;
+    margin: 22px auto;
     text-align: center;
 }
 
 .map-container h3 {
     color: #4b2e1f;
-    margin-bottom: 15px;
-    font-size: 21px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .map-container iframe {
     width: 100%;
-    height: 350px;
+    height: 300px;
     border: 0;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
 }
 
 .contact-buttons {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
-/* ===== Footer ===== */
+/* ================= FOOTER ================= */
 
 footer {
     background: #302016;
     color: white;
     text-align: center;
-    padding: 25px 15px;
+    padding: 20px 12px;
+    font-size: 14px;
 }
 
-/* ===== Floating Buttons ===== */
+/* ================= FLOATING BUTTONS ================= */
 
 .float-call,
 .float-whatsapp {
     position: fixed;
-    bottom: 20px;
-    width: 58px;
-    height: 58px;
+    bottom: 15px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 25px;
+    font-size: 22px;
     z-index: 999;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
 }
 
 .float-call {
-    left: 18px;
+    left: 12px;
     background: #75451f;
 }
 
 .float-whatsapp {
-    right: 18px;
+    right: 12px;
     background: #20c965;
 }
 
-/* ===== Tablet ===== */
+/* ================= TABLET ================= */
 
 @media (max-width: 900px) {
 
@@ -364,183 +370,290 @@ footer {
     }
 
     .slider {
-        height: 350px;
+        height: 300px;
     }
 
     .service-image {
-        height: 180px;
+        height: 140px;
+    }
+
+    section {
+        padding: 35px 0;
     }
 }
 
-/* ===== Mobile ===== */
+/* ================= MOBILE ================= */
 
 @media (max-width: 600px) {
 
     header {
-        padding: 20px 10px;
+        padding: 12px 8px;
     }
 
     .logo {
-        width: 85px;
-        height: 85px;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-
-    .brand-name {
-        font-size: 16px;
-    }
-
-    nav {
-        gap: 4px;
-    }
-
-    nav a {
-        font-size: 14px;
-        padding: 6px 8px;
-    }
-
-    .hero {
-        padding: 15px 10px 35px;
-    }
-
-    .slider {
-        height: 230px;
-        border-radius: 12px;
-    }
-
-    .hero h2 {
-        font-size: 24px;
-    }
-
-    .hero p {
-        font-size: 15px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .hero-buttons .btn {
-        width: 100%;
-        margin: 3px 0;
-    }
-
-    section {
-        width: 94%;
-        padding: 40px 0;
-    }
-
-    section h2 {
-        font-size: 25px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .card {
-        padding: 15px;
-    }
-
-    .service-image {
-        height: 180px;
-    }
-
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .gallery img {
-        height: 150px;
-        border-radius: 9px;
-    }
-
-    .about {
-        padding: 40px 6%;
-    }
-
-    .about p {
-        font-size: 15px;
-    }
-
-    .contact {
-        width: 94%;
-        padding: 30px 15px;
-        border-radius: 15px;
-    }
-
-    .contact-info {
-        font-size: 15px;
-    }
-
-    .map-container {
-        margin-top: 25px;
-    }
-
-    .map-container iframe {
-        height: 280px;
-        border-radius: 12px;
-    }
-
-    .contact-buttons .btn {
-        display: block;
-        width: 100%;
-        margin: 8px 0;
-    }
-
-    .float-call,
-    .float-whatsapp {
-        width: 52px;
-        height: 52px;
-        bottom: 15px;
-        font-size: 22px;
-    }
-
-    .float-call {
-        left: 12px;
-    }
-
-    .float-whatsapp {
-        right: 12px;
-    }
-}
-
-/* ===== Small Phones ===== */
-
-@media (max-width: 400px) {
-
-    .logo {
-        width: 75px;
-        height: 75px;
+        width: 65px;
+        height: 65px;
+        margin-bottom: 5px;
     }
 
     header h1 {
         font-size: 21px;
     }
 
+    .brand-name {
+        font-size: 14px;
+    }
+
+    nav {
+        gap: 3px;
+        margin-top: 8px;
+    }
+
     nav a {
-        font-size: 13px;
+        font-size: 12px;
+        padding: 4px 7px;
+    }
+
+    /* HERO */
+
+    .hero {
+        padding: 8px 8px 20px;
     }
 
     .slider {
-        height: 200px;
+        height: 185px;
+        border-radius: 10px;
     }
 
-    .gallery img {
-        height: 130px;
+    .hero-content {
+        margin-top: 12px;
+    }
+
+    .hero h2 {
+        font-size: 21px;
+        margin-bottom: 3px;
+    }
+
+    .hero p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        gap: 3px;
+        margin-top: 8px;
+    }
+
+    .hero-buttons .btn {
+        padding: 7px 12px;
+        font-size: 13px;
+        margin: 2px;
+    }
+
+    /* SECTIONS */
+
+    section {
+        width: 94%;
+        padding: 25px 0;
+    }
+
+    section h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    .section-intro {
+        font-size: 13px;
+        margin-bottom: 13px;
+    }
+
+    /* SERVICES */
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .card {
+        padding: 7px;
+        border-radius: 10px;
     }
 
     .service-image {
-        height: 160px;
+        width: 100%;
+        height: 115px;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+
+    .card h3 {
+        font-size: 15px;
+        margin: 3px 0;
+    }
+
+    .card p {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    /* ABOUT */
+
+    .about {
+        padding: 25px 6%;
+    }
+
+    .about p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    /* GALLERY */
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 7px;
+    }
+
+    /* CONTACT */
+
+    .contact {
+        width: 94%;
+        padding: 22px 12px;
+        border-radius: 12px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        font-size: 13px;
+    }
+
+    .contact-info p {
+        padding: 5px 0;
+    }
+
+    /* MAP */
+
+    .map-container {
+        margin-top: 18px;
+    }
+
+    .map-container h3 {
+        font-size: 17px;
+        margin-bottom: 8px;
     }
 
     .map-container iframe {
-        height: 240px;
+        height: 210px;
+        border-radius: 9px;
+    }
+
+    /* CONTACT BUTTONS */
+
+    .contact-buttons {
+        margin-top: 10px;
+    }
+
+    .contact-buttons .btn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+        padding: 16px 10px;
+        font-size: 12px;
+    }
+
+    /* FLOATING BUTTONS */
+
+    .float-call,
+    .float-whatsapp {
+        width: 47px;
+        height: 47px;
+        bottom: 10px;
+        font-size: 20px;
+    }
+
+    .float-call {
+        left: 9px;
+    }
+
+    .float-whatsapp {
+        right: 9px;
+    }
+}
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width: 400px) {
+
+    .logo {
+        width: 58px;
+        height: 58px;
+    }
+
+    header h1 {
+        font-size: 19px;
+    }
+
+    .brand-name {
+        font-size: 13px;
+    }
+
+    nav a {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .slider {
+        height: 165px;
+    }
+
+    .hero h2 {
+        font-size: 19px;
+    }
+
+    .hero p {
+        font-size: 12px;
+    }
+
+    section {
+        padding: 22px 0;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
+
+    .service-image {
+        height: 105px;
+    }
+
+    .card h3 {
+        font-size: 14px;
+    }
+
+    .card p {
+        font-size: 10px;
+    }
+
+    .gallery img {
+        height: 100px;
+    }
+
+    .map-container iframe {
+        height: 190px;
     }
 }
