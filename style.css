@@ -1,872 +1,1079 @@
-/* =========================================
-   تنظیمات پایه
-========================================= */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
 
 html {
-    scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
 
 body {
-    font-family: Tahoma, Arial, sans-serif;
-    direction: rtl;
-    background: #faf9f7;
-    color: #29251f;
-    line-height: 1.7;
-    overflow-x: hidden;
+font-family: Tahoma, Arial, sans-serif;
+direction: rtl;
+background: #faf8f4;
+color: #29241f;
+line-height: 1.7;
+overflow-x: hidden;
 }
 
 img {
-    max-width: 100%;
-    display: block;
+max-width: 100%;
+display: block;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+color: inherit;
+text-decoration: none;
 }
 
 .container {
-    width: min(1100px, 92%);
-    margin: 0 auto;
+width: min(1120px, 92%);
+margin: 0 auto;
 }
 
+/* نوار بالایی */
 
-/* =========================================
-   هدر
-========================================= */
+.top-strip {
+background: #35291f;
+color: #eee5da;
+font-size: 12px;
+}
+
+.top-strip-inner {
+min-height: 34px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+/* هدر */
 
 .site-header {
-    background: #fff;
-    border-bottom: 1px solid #e8e2da;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+background: rgba(255,255,255,.97);
+border-bottom: 1px solid #e8dfd4;
+position: sticky;
+top: 0;
+z-index: 1000;
+box-shadow: 0 2px 14px rgba(50,35,20,.06);
 }
 
 .header-inner {
-    min-height: 78px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+min-height: 78px;
+display: flex;
+align-items: center;
+gap: 15px;
 }
 
 .logo-link {
-    flex-shrink: 0;
-    display: block;
+flex-shrink: 0;
+display: block;
 }
 
 .logo-link img {
-    width: 62px;
-    height: 62px;
-    object-fit: contain;
-    cursor: zoom-in;
+width: 62px;
+height: 62px;
+object-fit: contain;
+cursor: zoom-in;
 }
 
 .brand {
-    flex: 1;
+flex: 1;
 }
 
 .brand h1 {
-    font-size: 20px;
-    line-height: 1.3;
-    color: #513a25;
+font-size: 21px;
+line-height: 1.3;
+color: #513823;
 }
 
 .brand p {
-    font-size: 11px;
-    color: #8a7765;
-    letter-spacing: 1px;
+font-size: 10px;
+color: #92755b;
+letter-spacing: 2px;
 }
 
 .main-nav {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+display: flex;
+align-items: center;
+gap: 18px;
 }
 
 .main-nav a {
-    font-size: 14px;
-    color: #4c4035;
+font-size: 13px;
+font-weight: bold;
+color: #4e4236;
+transition: .2s;
 }
 
 .main-nav a:hover {
-    color: #9a6b3f;
+color: #9a6b3f;
 }
 
-
-/* =========================================
-   اسلایدر
-========================================= */
+/* اسلایدر */
 
 .hero {
-    width: 100%;
-    background: #eee8df;
+width: 100%;
+background: #e9e1d7;
 }
 
 .slider {
-    position: relative;
-    width: 100%;
-    height: 430px;
-    overflow: hidden;
+position: relative;
+width: 100%;
+height: 480px;
+overflow: hidden;
 }
 
 .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .5s ease;
+position: absolute;
+inset: 0;
+opacity: 0;
+visibility: hidden;
+transition: opacity .6s ease;
 }
 
 .slide.active {
-    opacity: 1;
-    visibility: visible;
+opacity: 1;
+visibility: visible;
 }
 
 .slide > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 .hero-content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    background: rgba(0,0,0,.28);
-    color: #fff;
+position: absolute;
+inset: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 20px;
+background: linear-gradient(
+rgba(20,14,9,.18),
+rgba(20,14,9,.48)
+);
+color: #fff;
+}
+
+.hero-badge {
+background: rgba(255,255,255,.15);
+border: 1px solid rgba(255,255,255,.45);
+backdrop-filter: blur(5px);
+padding: 5px 14px;
+border-radius: 30px;
+font-size: 12px;
+margin-bottom: 12px;
 }
 
 .hero-content h2 {
-    font-size: clamp(25px,4vw,42px);
-    margin-bottom: 8px;
-    text-shadow: 0 2px 8px rgba(0,0,0,.5);
+font-size: clamp(28px,4vw,46px);
+margin-bottom: 8px;
+text-shadow: 0 3px 12px rgba(0,0,0,.65);
 }
 
 .hero-content p {
-    font-size: clamp(15px,2vw,20px);
-    margin-bottom: 18px;
-    text-shadow: 0 2px 6px rgba(0,0,0,.5);
+font-size: clamp(15px,2vw,20px);
+margin-bottom: 20px;
+text-shadow: 0 2px 8px rgba(0,0,0,.7);
 }
 
 .hero-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+justify-content: center;
 }
 
-
-/* =========================================
-   دکمه‌ها
-========================================= */
+/* دکمه */
 
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42px;
-    padding: 8px 18px;
-    border-radius: 8px;
-    background: #6d4d31;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 44px;
+padding: 9px 20px;
+border-radius: 8px;
+font-size: 13px;
+font-weight: bold;
+transition: transform .2s, box-shadow .2s, background .2s;
 }
 
 .btn:hover {
-    background: #503820;
+transform: translateY(-2px);
 }
 
+.btn-main {
+background: #795334;
+color: #fff;
+box-shadow: 0 5px 16px rgba(75,49,28,.25);
+}
 
-/* =========================================
-   بخش‌ها
-========================================= */
+.btn-main:hover {
+background: #5d3e27;
+}
+
+.btn-light {
+background: rgba(255,255,255,.94);
+color: #493421;
+}
+
+.whatsapp-btn {
+background: #25d366;
+color: #fff;
+}
+
+.instagram-btn {
+background: #6c4a35;
+color: #fff;
+}
+
+/* بخش اعتماد */
+
+.trust-section {
+background: #fff;
+border-bottom: 1px solid #eee6dc;
+}
+
+.trust-grid {
+display: grid;
+grid-template-columns: repeat(4,1fr);
+}
+
+.trust-item {
+min-height: 105px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+border-left: 1px solid #eee6dc;
+}
+
+.trust-item:last-child {
+border-left: none;
+}
+
+.trust-item span {
+font-size: 24px;
+margin-bottom: 2px;
+}
+
+.trust-item strong {
+color: #513823;
+font-size: 14px;
+}
+
+.trust-item small {
+color: #8b7d70;
+font-size: 11px;
+}
+
+/* بخش‌ها */
 
 .section {
-    padding: 48px 0;
+padding: 58px 0;
 }
 
-.section-title {
-    text-align: center;
-    font-size: 25px;
-    color: #513a25;
-    margin-bottom: 28px;
+.section-heading {
+text-align: center;
+margin-bottom: 32px;
 }
 
+.section-heading > span,
+.mini-title {
+display: inline-block;
+color: #9a6b3f;
+font-size: 12px;
+font-weight: bold;
+margin-bottom: 5px;
+}
 
-/* =========================================
-   خدمات و محصولات
-========================================= */
+.section-heading h2 {
+color: #4d3622;
+font-size: 26px;
+margin-bottom: 5px;
+}
+
+.section-heading p {
+color: #776b60;
+font-size: 13px;
+}
+
+/* محصولات */
+
+.products-section {
+background: #faf8f4;
+}
 
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 18px;
+display: grid;
+grid-template-columns: repeat(4,1fr);
+gap: 18px;
 }
 
 .service-card {
-    background: #fff;
-    border: 1px solid #e8e0d7;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(65,48,34,.07);
+background: #fff;
+border: 1px solid #e7ded3;
+border-radius: 13px;
+overflow: hidden;
+box-shadow: 0 5px 20px rgba(62,43,27,.07);
+transition: transform .25s, box-shadow .25s;
+}
+
+.service-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 12px 28px rgba(62,43,27,.13);
+}
+
+.product-image-wrap {
+position: relative;
+background: #f2eee9;
 }
 
 .service-image {
-    width: 100%;
-    height: 175px;
-    object-fit: cover;
-    cursor: zoom-in;
+width: 100%;
+height: 185px;
+object-fit: cover;
+cursor: zoom-in;
+}
+
+.product-label {
+position: absolute;
+top: 10px;
+right: 10px;
+background: #795334;
+color: #fff;
+padding: 3px 9px;
+border-radius: 20px;
+font-size: 10px;
 }
 
 .service-content {
-    padding: 14px;
+padding: 15px;
 }
 
 .service-content h3 {
-    color: #5c4129;
-    font-size: 18px;
-    margin-bottom: 5px;
+color: #573b25;
+font-size: 18px;
+margin-bottom: 5px;
 }
 
 .service-content p {
-    font-size: 13px;
-    color: #665d55;
+color: #71675e;
+font-size: 12px;
+line-height: 1.7;
 }
 
+.product-link {
+margin-top: 9px;
+color: #9a6b3f;
+font-size: 11px;
+font-weight: bold;
+}
 
-/* =========================================
-   متن سئو
-========================================= */
+.product-link span {
+margin-right: 4px;
+}
+
+/* متن سئو */
 
 .seo-text {
-    background: #f1ece5;
+background: #eee7de;
 }
 
-.seo-text h2 {
-    font-size: 23px;
-    color: #513a25;
-    margin-bottom: 15px;
+.seo-box {
+max-width: 850px;
+margin: auto;
+text-align: center;
 }
 
-.seo-text p {
-    max-width: 900px;
-    margin: 0 auto 10px;
-    font-size: 15px;
-    color: #514a43;
+.seo-box h2 {
+color: #4e3723;
+font-size: 24px;
+margin-bottom: 12px;
 }
 
-
-/* =========================================
-   درباره ما
-========================================= */
-
-.about-content {
-    max-width: 850px;
-    margin: 0 auto;
-    text-align: center;
+.seo-box p {
+color: #62584e;
+font-size: 14px;
+margin-bottom: 7px;
 }
 
-.about-content p {
-    margin-bottom: 10px;
-    color: #5b544d;
+.text-btn {
+display: inline-block;
+margin-top: 12px;
+color: #805a38;
+font-weight: bold;
+font-size: 13px;
 }
 
-
-/* =========================================
-   گالری
-========================================= */
+/* گالری */
 
 .gallery {
-    background: #fff;
+background: #fff;
 }
 
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 12px;
+display: grid;
+grid-template-columns: repeat(4,1fr);
+gap: 12px;
 }
 
 .gallery-grid picture {
-    display: block;
-    width: 100%;
-    height: 160px;
-    overflow: hidden;
-    border-radius: 10px;
-    background: #f3eee8;
+display: block;
+width: 100%;
+height: 170px;
+overflow: hidden;
+border-radius: 10px;
+background: #f2eee9;
 }
 
 .gallery-grid picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    cursor: zoom-in;
-    transition: transform .2s ease;
+width: 100%;
+height: 100%;
+object-fit: contain;
+cursor: zoom-in;
+transition: transform .25s;
 }
 
 .gallery-grid picture img:hover {
-    transform: scale(1.03);
+transform: scale(1.04);
 }
 
+/* درباره ما */
 
-/* =========================================
-   تماس
-========================================= */
+.about {
+background: #f5f0ea;
+}
+
+.about-box {
+max-width: 900px;
+margin: auto;
+background: #fff;
+border: 1px solid #e6ddd2;
+border-radius: 16px;
+padding: 38px;
+text-align: center;
+box-shadow: 0 7px 25px rgba(60,40,24,.06);
+}
+
+.about-content h2 {
+color: #4e3723;
+font-size: 25px;
+margin-bottom: 12px;
+}
+
+.about-content p {
+max-width: 720px;
+margin: 0 auto 10px;
+color: #655c53;
+font-size: 14px;
+}
+
+.about-content .btn {
+margin-top: 12px;
+}
+
+/* تماس */
 
 .contact {
-    background: #f4efe9;
+background: #eee7de;
 }
 
-.contact-info {
-    max-width: 700px;
-    margin: 0 auto 22px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #e5ddd4;
+.contact-layout {
+display: grid;
+grid-template-columns: 1.2fr .8fr;
+gap: 20px;
+max-width: 950px;
+margin: auto;
 }
 
-.contact-info p {
-    padding: 7px 0;
-    border-bottom: 1px solid #eee8e1;
-    font-size: 14px;
+.contact-info,
+.contact-action {
+background: #fff;
+border: 1px solid #e3d9ce;
+border-radius: 14px;
+padding: 22px;
 }
 
-.contact-info p:last-child {
-    border-bottom: none;
+.contact-row,
+.address-row {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 11px 0;
+border-bottom: 1px solid #eee8e1;
 }
 
-.contact-info a {
-    color: #76502f;
-    font-weight: bold;
+.contact-row:last-child {
+border-bottom: none;
+}
+
+.contact-icon {
+width: 38px;
+height: 38px;
+border-radius: 50%;
+background: #f0e8df;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+font-size: 17px;
+}
+
+.contact-row div,
+.address-row div {
+display: flex;
+flex-direction: column;
+}
+
+.contact-row strong,
+.address-row strong {
+color: #513823;
+font-size: 12px;
+}
+
+.contact-row a,
+.contact-row span,
+.address-row span {
+color: #6e6257;
+font-size: 12px;
+}
+
+.contact-row a:hover {
+color: #9a6b3f;
+}
+
+.contact-action {
+text-align: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.contact-action h3 {
+color: #513823;
+font-size: 20px;
+margin-bottom: 7px;
+}
+
+.contact-action p {
+color: #776c61;
+font-size: 13px;
+margin-bottom: 18px;
 }
 
 .contact-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 8px;
 }
 
-
-/* =========================================
-   نقشه
-========================================= */
+/* نقشه */
 
 .map-section {
-    background: #fff;
+background: #fff;
 }
 
 .map-section iframe {
-    display: block;
-    width: 100%;
-    height: 300px;
-    border: 0;
-    border-radius: 12px;
+display: block;
+width: 100%;
+height: 310px;
+border: 0;
+border-radius: 14px;
+box-shadow: 0 5px 20px rgba(50,35,20,.08);
 }
 
-
-/* =========================================
-   فوتر
-========================================= */
+/* فوتر */
 
 .site-footer {
-    background: #34291f;
-    color: #eee;
-    text-align: center;
-    padding: 22px 15px;
+background: #35291f;
+color: #eee5da;
+text-align: center;
+padding: 28px 15px;
+}
+
+.footer-brand {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+}
+
+.footer-brand img {
+width: 45px;
+height: 45px;
+object-fit: contain;
+}
+
+.footer-brand div {
+display: flex;
+flex-direction: column;
+text-align: right;
+}
+
+.footer-brand strong {
+font-size: 14px;
+}
+
+.footer-brand span {
+font-size: 9px;
+letter-spacing: 2px;
+color: #c6ad96;
 }
 
 .site-footer p {
-    font-size: 13px;
-    margin: 3px 0;
+font-size: 12px;
+color: #d5c8bb;
 }
 
+.site-footer .copyright {
+margin-top: 8px;
+font-size: 10px;
+color: #9f9184;
+}
 
-/* =========================================
-   دکمه‌های شناور
-========================================= */
+/* دکمه‌های شناور */
 
 .floating-call,
 .floating-whatsapp {
-    position: fixed;
-    bottom: 18px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 21px;
-    z-index: 5000;
-    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+position: fixed;
+bottom: 18px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+font-size: 21px;
+z-index: 5000;
+box-shadow: 0 5px 18px rgba(0,0,0,.25);
 }
 
 .floating-call {
-    left: 18px;
-    background: #65482f;
+left: 18px;
+background: #65482f;
 }
 
 .floating-whatsapp {
-    left: 76px;
-    background: #25D366;
+left: 78px;
+background: #25d366;
 }
 
-
-/* =========================================
-   پنجره عکس بزرگ
-========================================= */
+/* بزرگنمایی */
 
 .image-lightbox {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-
-    background: rgba(0,0,0,.96);
-
-    z-index: 99999;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 55px 10px 15px;
-
-    overflow: auto;
+position: fixed;
+inset: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,.96);
+z-index: 99999;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 55px 10px 15px;
+overflow: auto;
 }
-
-
-/* عکس اصلی بزرگ */
 
 .image-lightbox .lightbox-main-image {
-    display: block;
-
-    width: auto !important;
-    height: auto !important;
-
-    max-width: 96vw !important;
-    max-height: 78vh !important;
-
-    object-fit: contain !important;
-
-    border-radius: 6px;
-
-    box-shadow:
-        0 8px 40px rgba(0,0,0,.75);
+display: block;
+width: auto !important;
+height: auto !important;
+max-width: 96vw !important;
+max-height: 78vh !important;
+object-fit: contain !important;
+border-radius: 6px;
+box-shadow: 0 8px 40px rgba(0,0,0,.75);
 }
 
-
-/* =========================================
-   نوشته زیر عکس بزرگ
-========================================= */
-
 .lightbox-info {
-    width: min(800px,94vw);
-
-    text-align: center;
-
-    margin-top: 12px;
-
-    padding: 7px 15px;
-
-    color: #fff;
+width: min(800px,94vw);
+text-align: center;
+margin-top: 12px;
+padding: 7px 15px;
+color: #fff;
 }
 
 .lightbox-info h3 {
-    color: #fff;
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    margin-bottom: 4px;
-
-    text-shadow:
-        0 2px 5px rgba(0,0,0,.7);
+color: #fff;
+font-size: 22px;
+margin-bottom: 4px;
 }
 
 .lightbox-info p {
-    color: #eee;
-
-    font-size: 15px;
-
-    line-height: 1.7;
+color: #eee;
+font-size: 15px;
 }
-
-
-/* =========================================
-   دکمه ×
-========================================= */
 
 .lightbox-close {
-    position: absolute;
-
-    top: 10px;
-    right: 15px;
-
-    width: 48px;
-    height: 48px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    color: #222;
-
-    font-size: 34px;
-
-    line-height: 44px;
-
-    cursor: pointer;
-
-    z-index: 100000;
-
-    box-shadow:
-        0 3px 15px rgba(0,0,0,.4);
+position: absolute;
+top: 10px;
+right: 15px;
+width: 48px;
+height: 48px;
+border: none;
+border-radius: 50%;
+background: #fff;
+color: #222;
+font-size: 34px;
+cursor: pointer;
 }
 
-
-/* =========================================
-   خطای گالری
-========================================= */
-
-.gallery-error {
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-}
-
-
-/* =========================================
-   تبلت
-========================================= */
+/* موبایل */
 
 @media (max-width: 900px) {
 
-    .services-grid {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-    .gallery-grid {
-        grid-template-columns: repeat(3,1fr);
-    }
-
-    .slider {
-        height: 330px;
-    }
-
-    .main-nav {
-        gap: 9px;
-    }
-
-    .main-nav a {
-        font-size: 13px;
-    }
+.services-grid {
+    grid-template-columns: repeat(2,1fr);
 }
 
+.gallery-grid {
+    grid-template-columns: repeat(3,1fr);
+}
 
-/* =========================================
-   موبایل
-========================================= */
+.slider {
+    height: 350px;
+}
+
+.main-nav {
+    gap: 9px;
+}
+
+.main-nav a {
+    font-size: 12px;
+}
+
+.contact-layout {
+    grid-template-columns: 1fr;
+}
+
+}
 
 @media (max-width: 600px) {
 
-    .container {
-        width: 94%;
-    }
-
-    .header-inner {
-        min-height: 64px;
-        gap: 8px;
-    }
-
-    .logo-link img {
-        width: 48px;
-        height: 48px;
-    }
-
-    .brand h1 {
-        font-size: 16px;
-    }
-
-    .brand p {
-        font-size: 9px;
-    }
-
-    .main-nav {
-        gap: 7px;
-    }
-
-    .main-nav a {
-        font-size: 11px;
-    }
-
-
-    .slider {
-        height: 210px;
-    }
-
-    .hero-content {
-        padding: 12px;
-    }
-
-    .hero-content h2 {
-        font-size: 23px;
-        margin-bottom: 4px;
-    }
-
-    .hero-content p {
-        font-size: 13px;
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        min-height: 38px;
-        padding: 6px 13px;
-        font-size: 12px;
-    }
-
-
-    .section {
-        padding: 30px 0;
-    }
-
-    .section-title {
-        font-size: 20px;
-        margin-bottom: 18px;
-    }
-
-
-    /* خدمات */
-
-    .services-grid {
-        grid-template-columns: repeat(2,1fr);
-        gap: 10px;
-    }
-
-    .service-image {
-        height: 115px;
-    }
-
-    .service-content {
-        padding: 9px;
-    }
-
-    .service-content h3 {
-        font-size: 15px;
-    }
-
-    .service-content p {
-        font-size: 11px;
-        line-height: 1.55;
-    }
-
-
-    /* سئو */
-
-    .seo-text h2 {
-        font-size: 19px;
-    }
-
-    .seo-text p {
-        font-size: 13px;
-        line-height: 1.8;
-    }
-
-
-    /* گالری */
-
-    .gallery-grid {
-        grid-template-columns: repeat(2,1fr);
-        gap: 8px;
-    }
-
-    .gallery-grid picture {
-        height: 130px;
-        border-radius: 8px;
-    }
-
-
-    /* تماس */
-
-    .contact-info {
-        padding: 13px;
-    }
-
-    .contact-info p {
-        font-size: 12px;
-        line-height: 1.8;
-    }
-
-
-    /* نقشه */
-
-    .map-section iframe {
-        height: 210px;
-        border-radius: 9px;
-    }
-
-
-    /* فوتر */
-
-    .site-footer {
-        padding: 17px 10px;
-    }
-
-    .site-footer p {
-        font-size: 11px;
-    }
-
-
-    /* دکمه شناور */
-
-    .floating-call,
-    .floating-whatsapp {
-        width: 44px;
-        height: 44px;
-        bottom: 13px;
-        font-size: 19px;
-    }
-
-    .floating-call {
-        left: 13px;
-    }
-
-    .floating-whatsapp {
-        left: 64px;
-    }
-
-
-    /* عکس بزرگ موبایل */
-
-    .image-lightbox {
-        padding:
-            58px 5px 12px;
-    }
-
-    .image-lightbox .lightbox-main-image {
-        max-width: 98vw !important;
-        max-height: 76vh !important;
-    }
-
-
-    .lightbox-info {
-        width: 96vw;
-        margin-top: 7px;
-        padding: 5px 8px;
-    }
-
-    .lightbox-info h3 {
-        font-size: 17px;
-    }
-
-    .lightbox-info p {
-        font-size: 12px;
-    }
-
-
-    .lightbox-close {
-        top: 8px;
-        right: 9px;
-        width: 43px;
-        height: 43px;
-        font-size: 30px;
-    }
+.container {
+    width: 94%;
 }
 
+.top-strip-inner {
+    min-height: 29px;
+    font-size: 9px;
+}
 
-/* =========================================
-   گوشی‌های خیلی کوچک
-========================================= */
+.header-inner {
+    min-height: 63px;
+    gap: 7px;
+}
+
+.logo-link img {
+    width: 47px;
+    height: 47px;
+}
+
+.brand h1 {
+    font-size: 15px;
+}
+
+.brand p {
+    font-size: 8px;
+}
+
+.main-nav {
+    gap: 5px;
+}
+
+.main-nav a {
+    font-size: 9px;
+}
+
+.slider {
+    height: 220px;
+}
+
+.hero-content {
+    padding: 12px;
+}
+
+.hero-badge {
+    font-size: 9px;
+    padding: 3px 9px;
+    margin-bottom: 7px;
+}
+
+.hero-content h2 {
+    font-size: 22px;
+    margin-bottom: 3px;
+}
+
+.hero-content p {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    min-height: 37px;
+    padding: 6px 12px;
+    font-size: 10px;
+}
+
+.trust-grid {
+    grid-template-columns: repeat(2,1fr);
+}
+
+.trust-item {
+    min-height: 75px;
+    border-bottom: 1px solid #eee6dc;
+}
+
+.trust-item:nth-child(2) {
+    border-left: none;
+}
+
+.trust-item span {
+    font-size: 18px;
+}
+
+.trust-item strong {
+    font-size: 11px;
+}
+
+.trust-item small {
+    font-size: 9px;
+}
+
+.section {
+    padding: 32px 0;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    font-size: 20px;
+}
+
+.section-heading p {
+    font-size: 11px;
+}
+
+.services-grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: 9px;
+}
+
+.service-image {
+    height: 112px;
+}
+
+.service-content {
+    padding: 9px;
+}
+
+.service-content h3 {
+    font-size: 14px;
+}
+
+.service-content p {
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+.product-link {
+    font-size: 9px;
+    margin-top: 5px;
+}
+
+.product-label {
+    top: 6px;
+    right: 6px;
+    font-size: 8px;
+    padding: 2px 6px;
+}
+
+.seo-box h2 {
+    font-size: 19px;
+}
+
+.seo-box p {
+    font-size: 12px;
+}
+
+.gallery-grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: 7px;
+}
+
+.gallery-grid picture {
+    height: 125px;
+}
+
+.about-box {
+    padding: 22px 14px;
+}
+
+.about-content h2 {
+    font-size: 20px;
+}
+
+.about-content p {
+    font-size: 12px;
+}
+
+.contact-info,
+.contact-action {
+    padding: 14px;
+}
+
+.contact-row,
+.address-row {
+    gap: 9px;
+    padding: 8px 0;
+}
+
+.contact-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+.contact-row strong,
+.address-row strong {
+    font-size: 10px;
+}
+
+.contact-row a,
+.contact-row span,
+.address-row span {
+    font-size: 10px;
+}
+
+.contact-action h3 {
+    font-size: 17px;
+}
+
+.contact-action p {
+    font-size: 11px;
+}
+
+.map-section iframe {
+    height: 205px;
+}
+
+.site-footer {
+    padding: 20px 10px;
+}
+
+.floating-call,
+.floating-whatsapp {
+    width: 44px;
+    height: 44px;
+    bottom: 12px;
+    font-size: 18px;
+}
+
+.floating-call {
+    left: 12px;
+}
+
+.floating-whatsapp {
+    left: 63px;
+}
+
+.image-lightbox {
+    padding: 58px 5px 12px;
+}
+
+.image-lightbox .lightbox-main-image {
+    max-width: 98vw !important;
+    max-height: 76vh !important;
+}
+
+.lightbox-info {
+    width: 96vw;
+    margin-top: 7px;
+    padding: 5px;
+}
+
+.lightbox-info h3 {
+    font-size: 17px;
+}
+
+.lightbox-info p {
+    font-size: 12px;
+}
+
+.lightbox-close {
+    top: 8px;
+    right: 9px;
+    width: 43px;
+    height: 43px;
+    font-size: 30px;
+}
+
+}
 
 @media (max-width: 380px) {
 
-    .main-nav {
-        gap: 5px;
-    }
-
-    .main-nav a {
-        font-size: 10px;
-    }
-
-    .brand h1 {
-        font-size: 14px;
-    }
-
-    .slider {
-        height: 185px;
-    }
-
-    .service-image {
-        height: 105px;
-    }
-
-    .gallery-grid picture {
-        height: 115px;
-    }
-
-    .hero-content h2 {
-        font-size: 20px;
-    }
-
-    .hero-content p {
-        font-size: 11px;
-    }
-
-    .image-lightbox .lightbox-main-image {
-        max-height: 72vh !important;
-    }
-
-    .lightbox-info h3 {
-        font-size: 15px;
-    }
-
-    .lightbox-info p {
-        font-size: 11px;
-    }
+.top-strip-inner span:first-child {
+    display: none;
 }
 
+.brand h1 {
+    font-size: 13px;
+}
 
-/* =========================================
-   دسترسی‌پذیری
-========================================= */
+.main-nav a {
+    font-size: 8px;
+}
+
+.slider {
+    height: 190px;
+}
+
+.hero-content h2 {
+    font-size: 19px;
+}
+
+.hero-content p {
+    font-size: 10px;
+}
+
+.service-image {
+    height: 102px;
+}
+
+.gallery-grid picture {
+    height: 112px;
+}
+
+}
 
 :focus-visible {
-    outline: 3px solid #a47b52;
-    outline-offset: 3px;
+outline: 3px solid #a47b52;
+outline-offset: 3px;
 }
-
 
 @media (prefers-reduced-motion: reduce) {
 
-    html {
-        scroll-behavior: auto;
-    }
+html {
+    scroll-behavior: auto;
+}
 
-    *,
-    *::before,
-    *::after {
-        transition: none !important;
-        animation: none !important;
-    }
+*,
+*::before,
+*::after {
+    transition: none !important;
+    animation: none !important;
+}
+
 }
