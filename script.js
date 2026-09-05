@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
+    /* ================================
        اسلایدر صفحه اصلی
-    ========================= */
+    ================================= */
 
     const slides = document.querySelectorAll(".slide");
 
@@ -10,86 +10,136 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let currentSlide = 0;
 
-        const showSlide = (index) => {
+        function showSlide(index) {
+
             slides.forEach((slide, i) => {
-                slide.classList.toggle("active", i === index);
+                slide.classList.toggle(
+                    "active",
+                    i === index
+                );
             });
-        };
+        }
 
         showSlide(0);
 
         setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
+
+            currentSlide =
+                (currentSlide + 1) % slides.length;
+
             showSlide(currentSlide);
+
         }, 4500);
     }
 
 
-    /* =========================
-       Lightbox
-       نمایش بزرگ تصاویر
-    ========================= */
+    /* ================================
+       سیستم بزرگ‌نمایی تصاویر
+    ================================= */
 
     let lightbox = null;
 
-    const closeLightbox = () => {
+
+    function closeLightbox() {
 
         if (!lightbox) {
             return;
         }
 
         lightbox.remove();
+
         lightbox = null;
 
         document.body.style.overflow = "";
-    };
+    }
 
 
-    const openLightbox = (image) => {
+    function openLightbox(image) {
 
         closeLightbox();
 
-        lightbox = document.createElement("div");
 
-        lightbox.className = "image-lightbox";
+        /* ساخت پنجره */
 
-        lightbox.setAttribute("role", "dialog");
-        lightbox.setAttribute("aria-modal", "true");
-        lightbox.setAttribute("aria-label", "نمایش بزرگ تصویر");
+        lightbox =
+            document.createElement("div");
 
-        const bigImage = document.createElement("img");
+        lightbox.className =
+            "image-lightbox";
+
+
+        lightbox.setAttribute(
+            "role",
+            "dialog"
+        );
+
+        lightbox.setAttribute(
+            "aria-modal",
+            "true"
+        );
+
+
+        /* تصویر بزرگ */
+
+        const bigImage =
+            document.createElement("img");
+
 
         bigImage.src =
             image.currentSrc ||
             image.src;
 
+
         bigImage.alt =
             image.alt ||
-            "تصویر زاگرس چوب کیانشهر";
+            "زاگرس چوب کیانشهر";
+
+
+        /* دکمه بستن */
 
         const closeButton =
             document.createElement("button");
 
-        closeButton.type = "button";
+
+        closeButton.type =
+            "button";
+
 
         closeButton.className =
             "lightbox-close";
 
-        closeButton.textContent = "×";
+
+        closeButton.textContent =
+            "×";
+
 
         closeButton.setAttribute(
             "aria-label",
             "بستن تصویر"
         );
 
-        lightbox.appendChild(bigImage);
-        lightbox.appendChild(closeButton);
 
-        document.body.appendChild(lightbox);
+        /* اضافه کردن */
 
-        document.body.style.overflow = "hidden";
+        lightbox.appendChild(
+            bigImage
+        );
 
-        closeButton.focus();
+        lightbox.appendChild(
+            closeButton
+        );
+
+
+        document.body.appendChild(
+            lightbox
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        /* بستن با دکمه */
 
         closeButton.addEventListener(
             "click",
@@ -97,69 +147,96 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* بستن با لمس بیرون عکس */
+        /* بستن با لمس قسمت مشکی */
 
         lightbox.addEventListener(
             "click",
             (event) => {
 
-                if (event.target === lightbox) {
+                if (
+                    event.target === lightbox
+                ) {
+
                     closeLightbox();
+
                 }
 
             }
         );
-    };
 
 
-    /* =========================
-       بزرگ کردن لوگو
-    ========================= */
+        /* فوکوس روی دکمه */
 
-    const logoImage =
-        document.querySelector(".logo-link img");
+        setTimeout(() => {
 
-    if (logoImage) {
+            closeButton.focus();
 
-        logoImage.style.cursor = "zoom-in";
+        }, 50);
+    }
 
-        logoImage.addEventListener(
+
+    /* ================================
+       بزرگ کردن لوگوی سایت
+    ================================= */
+
+    const logo =
+        document.querySelector(
+            ".logo-link img"
+        );
+
+
+    if (logo) {
+
+        logo.style.cursor =
+            "zoom-in";
+
+
+        logo.addEventListener(
             "click",
             (event) => {
 
+                /* جلوگیری از رفتن به ابتدای صفحه */
+
                 event.preventDefault();
 
-                openLightbox(logoImage);
+                event.stopPropagation();
+
+
+                openLightbox(logo);
 
             }
         );
     }
 
 
-    /* =========================
+    /* ================================
        گالری تصاویر
-       دریافت تصاویر از GitHub
-    ========================= */
+       دریافت تمام تصاویر از GitHub
+    ================================= */
 
-    const galleryGrid =
-        document.querySelector(".gallery-grid");
+    const gallery =
+        document.querySelector(
+            ".gallery-grid"
+        );
 
-    if (galleryGrid) {
 
-        const githubApi =
+    if (gallery) {
+
+
+        const githubAPI =
             "https://api.github.com/repos/al20251360-stack/zagroschoob/contents/images";
 
 
-        /* فایل‌هایی که نباید داخل گالری باشند */
+        /* لوگو نباید وارد گالری شود */
 
         const excludedFiles = [
             "logo.png"
         ];
 
 
-        /* فرمت‌های مجاز */
+        /* فرمت‌های تصویری */
 
-        const allowedExtensions = [
+        const extensions = [
             ".jpg",
             ".jpeg",
             ".png",
@@ -167,60 +244,79 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
 
-        fetch(githubApi)
+        fetch(githubAPI)
+
 
             .then(response => {
 
                 if (!response.ok) {
+
                     throw new Error(
-                        "خطا در دریافت تصاویر از GitHub"
+                        "GitHub API Error"
                     );
+
                 }
 
                 return response.json();
+
             })
 
 
             .then(files => {
 
-                /* فقط فایل‌های تصویری */
 
-                let imageFiles = files.filter(file => {
+                /* انتخاب تصاویر */
 
-                    if (file.type !== "file") {
-                        return false;
-                    }
+                let images =
+                    files.filter(file => {
 
-                    if (
-                        excludedFiles.includes(file.name)
-                    ) {
-                        return false;
-                    }
+                        if (
+                            file.type !==
+                            "file"
+                        ) {
+                            return false;
+                        }
 
-                    const fileName =
-                        file.name.toLowerCase();
 
-                    return allowedExtensions.some(
-                        extension =>
-                            fileName.endsWith(extension)
-                    );
-                });
+                        if (
+                            excludedFiles.includes(
+                                file.name
+                            )
+                        ) {
+                            return false;
+                        }
+
+
+                        const name =
+                            file.name.toLowerCase();
+
+
+                        return extensions.some(
+                            extension =>
+                                name.endsWith(
+                                    extension
+                                )
+                        );
+
+                    });
 
 
                 /* =========================
-                   جلوگیری از نمایش دوباره
-                   JPG و WebP یک عکس
+                   حذف JPG تکراری
+                   اگر WebP آن وجود دارد
                 ========================= */
 
-                const webpNames =
+                const webpFiles =
                     new Set(
 
-                        imageFiles
+                        images
 
                             .filter(file =>
                                 file.name
                                     .toLowerCase()
-                                    .endsWith(".webp")
+                                    .endsWith(
+                                        ".webp"
+                                    )
                             )
 
                             .map(file =>
@@ -234,62 +330,68 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
 
-                imageFiles =
-                    imageFiles.filter(file => {
+                images =
+                    images.filter(file => {
 
-                        const lowerName =
+                        const name =
                             file.name.toLowerCase();
 
 
                         if (
-                            lowerName.endsWith(".jpg") ||
-                            lowerName.endsWith(".jpeg")
+                            name.endsWith(".jpg") ||
+                            name.endsWith(".jpeg")
                         ) {
 
-                            const baseName =
-                                lowerName.replace(
+                            const base =
+                                name.replace(
                                     /\.(jpg|jpeg)$/,
                                     ""
                                 );
 
 
                             if (
-                                webpNames.has(baseName)
+                                webpFiles.has(base)
                             ) {
+
                                 return false;
+
                             }
+
                         }
 
 
                         return true;
+
                     });
 
 
-                /* مرتب کردن تصاویر */
+                /* مرتب‌سازی */
 
-                imageFiles.sort(
+                images.sort(
                     (a, b) =>
                         a.name.localeCompare(
                             b.name,
                             "fa",
                             {
                                 numeric: true,
-                                sensitivity: "base"
+                                sensitivity:
+                                    "base"
                             }
                         )
                 );
 
 
-                /* پاک کردن گالری قبلی */
+                /* پاک کردن گالری */
 
-                galleryGrid.innerHTML = "";
+                gallery.innerHTML = "";
 
 
                 /* =========================
-                   ساخت گالری
+                   ساخت کارت تصاویر
                 ========================= */
 
-                imageFiles.forEach(file => {
+                images.forEach(file => {
+
 
                     const picture =
                         document.createElement(
@@ -297,54 +399,67 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
 
-                    const img =
+                    const image =
                         document.createElement(
                             "img"
                         );
 
 
-                    img.src =
+                    image.src =
                         file.download_url;
 
 
-                    img.alt =
-                        "نمونه کار و محصولات زاگرس چوب کیانشهر";
+                    image.alt =
+                        "نمونه کار زاگرس چوب کیانشهر";
 
 
-                    img.loading = "lazy";
+                    image.loading =
+                        "lazy";
 
 
-                    img.decoding = "async";
+                    image.decoding =
+                        "async";
 
 
-                    img.className =
+                    image.className =
                         "gallery-image";
 
 
-                    picture.appendChild(img);
+                    picture.appendChild(
+                        image
+                    );
 
-                    galleryGrid.appendChild(picture);
+
+                    gallery.appendChild(
+                        picture
+                    );
 
 
-                    /* بزرگ کردن عکس */
+                    /* بزرگ کردن */
 
-                    img.addEventListener(
+                    image.addEventListener(
                         "click",
                         () => {
 
-                            openLightbox(img);
+                            openLightbox(
+                                image
+                            );
 
                         }
                     );
+
                 });
 
 
-                /* اگر تصویری پیدا نشد */
+                /* اگر هیچ تصویری نبود */
 
-                if (imageFiles.length === 0) {
+                if (
+                    images.length === 0
+                ) {
 
-                    galleryGrid.innerHTML =
+                    gallery.innerHTML =
                         "<p style='text-align:center;'>تصویری برای نمایش پیدا نشد.</p>";
+
                 }
 
             })
@@ -357,15 +472,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     error
                 );
 
-                galleryGrid.innerHTML =
+
+                gallery.innerHTML =
                     "<p style='text-align:center;'>در بارگذاری تصاویر مشکلی پیش آمد.</p>";
+
             });
+
     }
 
 
-    /* =========================
-       بستن عکس با دکمه Escape
-    ========================= */
+    /* ================================
+       بستن با کلید Escape
+    ================================= */
 
     document.addEventListener(
         "keydown",
@@ -379,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 closeLightbox();
 
             }
+
         }
     );
 
