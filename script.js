@@ -1,93 +1,128 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    /* ================= اسلایدر ================= */
+    /* =========================
+       HERO SLIDER
+    ========================= */
 
     const slides = document.querySelectorAll(".slide");
 
-    if (slides.length > 0) {
+    if (slides.length > 1) {
 
         let currentSlide = 0;
 
-        function showSlide(index) {
-            slides.forEach(function (slide) {
-                slide.classList.remove("active");
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle("active", i === index);
             });
+        };
 
-            slides[index].classList.add("active");
-        }
-
-        function nextSlide() {
-            currentSlide++;
-
-            if (currentSlide >= slides.length) {
-                currentSlide = 0;
-            }
-
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
-        }
+        };
 
         showSlide(0);
 
-        setInterval(nextSlide, 4000);
+        setInterval(nextSlide, 4500);
     }
 
 
-    /* ================= بزرگ کردن عکس‌ها ================= */
+    /* =========================
+       IMAGE LIGHTBOX
+    ========================= */
 
     const images = document.querySelectorAll(
-        ".gallery img, .service-image"
+        ".gallery-grid img, .service-image"
     );
 
-    images.forEach(function (img) {
+    if (!images.length) return;
 
-        img.style.cursor = "zoom-in";
+    let lightbox = null;
 
-        img.addEventListener("click", function () {
 
-            const overlay = document.createElement("div");
-            overlay.className = "image-lightbox";
+    const closeLightbox = () => {
 
-            const bigImage = document.createElement("img");
-            bigImage.src = img.src;
-            bigImage.alt = img.alt || "تصویر زاگرس چوب";
+        if (!lightbox) return;
 
-            const closeButton = document.createElement("button");
-            closeButton.className = "lightbox-close";
-            closeButton.innerHTML = "×";
-            closeButton.setAttribute("aria-label", "بستن تصویر");
+        lightbox.remove();
+        lightbox = null;
 
-            overlay.appendChild(bigImage);
-            overlay.appendChild(closeButton);
+        document.body.style.overflow = "";
+    };
 
-            document.body.appendChild(overlay);
 
-            document.body.style.overflow = "hidden";
+    const openLightbox = (image) => {
 
-            /* بستن با × */
-            closeButton.addEventListener("click", function (event) {
-                event.stopPropagation();
-                overlay.remove();
-                document.body.style.overflow = "";
-            });
+        closeLightbox();
 
-            /* بستن با لمس بیرون عکس */
-            overlay.addEventListener("click", function (event) {
-                if (event.target === overlay) {
-                    overlay.remove();
-                    document.body.style.overflow = "";
-                }
-            });
+        lightbox = document.createElement("div");
+        lightbox.className = "image-lightbox";
 
-            /* بستن با کلید ESC */
-            document.addEventListener("keydown", function escHandler(event) {
-                if (event.key === "Escape") {
-                    overlay.remove();
-                    document.body.style.overflow = "";
-                    document.removeEventListener("keydown", escHandler);
-                }
-            });
+        lightbox.setAttribute("role", "dialog");
+        lightbox.setAttribute("aria-modal", "true");
+        lightbox.setAttribute("aria-label", "نمایش بزرگ تصویر");
+
+
+        const bigImage = document.createElement("img");
+
+        bigImage.src = image.currentSrc || image.src;
+        bigImage.alt = image.alt || "تصویر زاگرس چوب کیانشهر";
+
+
+        const closeButton = document.createElement("button");
+
+        closeButton.type = "button";
+        closeButton.className = "lightbox-close";
+        closeButton.textContent = "×";
+        closeButton.setAttribute("aria-label", "بستن تصویر");
+
+
+        lightbox.appendChild(bigImage);
+        lightbox.appendChild(closeButton);
+
+        document.body.appendChild(lightbox);
+
+        document.body.style.overflow = "hidden";
+
+
+        closeButton.focus();
+
+
+        closeButton.addEventListener(
+            "click",
+            closeLightbox
+        );
+
+
+        lightbox.addEventListener("click", (event) => {
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
 
         });
+
+    };
+
+
+    images.forEach((image) => {
+
+        image.addEventListener("click", () => {
+            openLightbox(image);
+        });
+
+    });
+
+
+    /* =========================
+       ESC KEY
+    ========================= */
+
+    document.addEventListener("keydown", (event) => {
+
+        if (event.key === "Escape" && lightbox) {
+            closeLightbox();
+        }
 
     });
 
