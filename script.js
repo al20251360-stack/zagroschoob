@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ==============================
+    /* =========================================
        اسلایدر
-    ============================== */
+    ========================================= */
 
     const slides = document.querySelectorAll(".slide");
 
@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* ==============================
-       بزرگ‌نمایی عکس
-    ============================== */
+    /* =========================================
+       بزرگنمایی تصاویر
+    ========================================= */
 
     let lightbox = null;
+    let lightboxOpen = false;
+    let ignoreNextPopState = false;
 
 
     function closeLightbox() {
@@ -38,46 +40,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lightbox.remove();
         lightbox = null;
+        lightboxOpen = false;
 
         document.body.style.overflow = "";
 
-        history.replaceState(
-            null,
-            "",
-            window.location.href
-                .replace("#image-preview", "")
-        );
+        if (
+            window.location.hash === "#image-preview"
+        ) {
+            ignoreNextPopState = true;
+            history.back();
+        }
     }
 
 
-    function openLightbox(image, title = "", description = "") {
+    function openLightbox(image, title, description) {
 
-        closeLightbox();
+        if (lightbox) {
+            lightbox.remove();
+            lightbox = null;
+        }
 
+        lightboxOpen = true;
+
+        /* پنجره */
 
         lightbox = document.createElement("div");
 
-        lightbox.className = "image-lightbox";
+        lightbox.className =
+            "image-lightbox";
 
 
-        /* تصویر بزرگ */
+        /* عکس بزرگ */
 
         const bigImage =
             document.createElement("img");
 
         bigImage.src =
-            image.currentSrc || image.src;
+            image.currentSrc ||
+            image.src;
 
         bigImage.alt =
-            image.alt || "زاگرس چوب کیانشهر";
+            image.alt ||
+            title ||
+            "زاگرس چوب کیانشهر";
+
+        bigImage.className =
+            "lightbox-main-image";
 
 
-        /* اطلاعات عکس */
+        /* اطلاعات محصول */
 
         const info =
             document.createElement("div");
 
-        info.className = "lightbox-info";
+        info.className =
+            "lightbox-info";
 
 
         if (title) {
@@ -85,9 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const titleElement =
                 document.createElement("h3");
 
-            titleElement.textContent = title;
+            titleElement.textContent =
+                title;
 
-            info.appendChild(titleElement);
+            info.appendChild(
+                titleElement
+            );
         }
 
 
@@ -123,56 +143,52 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ساخت پنجره */
+        /* اضافه کردن عناصر */
 
-        lightbox.appendChild(bigImage);
+        lightbox.appendChild(
+            bigImage
+        );
 
         if (title || description) {
             lightbox.appendChild(info);
         }
 
-        lightbox.appendChild(closeButton);
-
-        document.body.appendChild(lightbox);
-
-
-        /* جلوگیری از اسکرول صفحه */
-
-        document.body.style.overflow = "hidden";
+        lightbox.appendChild(
+            closeButton
+        );
 
 
-        /* تغییر آدرس برای دکمه Back گوشی */
+        document.body.appendChild(
+            lightbox
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        /* برای دکمه برگشت گوشی */
 
         history.pushState(
-            { imagePreview: true },
+            {
+                imagePreview: true
+            },
             "",
             "#image-preview"
         );
 
 
-        /* بستن */
+        /* دکمه × */
 
         closeButton.addEventListener(
             "click",
             () => {
-
-                if (
-                    window.location.hash ===
-                    "#image-preview"
-                ) {
-
-                    history.back();
-
-                } else {
-
-                    closeLightbox();
-
-                }
+                history.back();
             }
         );
 
 
-        /* لمس قسمت مشکی */
+        /* لمس فضای مشکی */
 
         lightbox.addEventListener(
             "click",
@@ -181,44 +197,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (
                     event.target === lightbox
                 ) {
-
-                    if (
-                        window.location.hash ===
-                        "#image-preview"
-                    ) {
-
-                        history.back();
-
-                    } else {
-
-                        closeLightbox();
-
-                    }
+                    history.back();
                 }
+
             }
         );
     }
 
 
-    /* ==============================
+    /* =========================================
        دکمه Back گوشی
-    ============================== */
+    ========================================= */
 
     window.addEventListener(
         "popstate",
         () => {
 
-            if (lightbox) {
-                closeLightbox();
+            if (ignoreNextPopState) {
+                ignoreNextPopState = false;
+                return;
             }
 
+            if (lightboxOpen) {
+
+                if (lightbox) {
+                    lightbox.remove();
+                }
+
+                lightbox = null;
+                lightboxOpen = false;
+
+                document.body.style.overflow = "";
+            }
         }
     );
 
 
-    /* ==============================
-       ESC
-    ============================== */
+    /* =========================================
+       کلید Escape
+    ========================================= */
 
     document.addEventListener(
         "keydown",
@@ -226,19 +243,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (
                 event.key === "Escape" &&
-                lightbox
+                lightboxOpen
             ) {
-
-                closeLightbox();
-
+                history.back();
             }
+
         }
     );
 
 
-    /* ==============================
-       بزرگ کردن لوگو
-    ============================== */
+    /* =========================================
+       لوگوی سایت
+    ========================================= */
 
     const logo =
         document.querySelector(
@@ -248,7 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (logo) {
 
-        logo.style.cursor = "zoom-in";
+        logo.style.cursor =
+            "zoom-in";
+
 
         logo.addEventListener(
             "click",
@@ -268,9 +286,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* ==============================
+    /* =========================================
+       خدمات و محصولات
+    ========================================= */
+
+    const serviceCards =
+        document.querySelectorAll(
+            ".service-card"
+        );
+
+
+    serviceCards.forEach(
+        (card) => {
+
+            const image =
+                card.querySelector(
+                    ".service-image"
+                );
+
+
+            const title =
+                card.querySelector(
+                    "h3"
+                );
+
+
+            const description =
+                card.querySelector(
+                    "p"
+                );
+
+
+            if (!image) return;
+
+
+            image.style.cursor =
+                "zoom-in";
+
+
+            image.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+
+                    openLightbox(
+                        image,
+                        title
+                            ? title.textContent.trim()
+                            : "زاگرس چوب کیانشهر",
+                        description
+                            ? description.textContent.trim()
+                            : "ZAGROS WOOD"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================
        گالری
-    ============================== */
+    ========================================= */
 
     const gallery =
         document.querySelector(
@@ -285,12 +366,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://api.github.com/repos/al20251360-stack/zagroschoob/contents/images";
 
 
-    /* لوگو داخل گالری نباشد */
+    /* لوگو وارد گالری نشود */
 
     const excludedFiles = [
         "logo.png"
     ];
 
+
+    /* فرمت‌های تصویری */
 
     const extensions = [
         ".jpg",
@@ -306,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!response.ok) {
                 throw new Error(
-                    "خطا در دریافت تصاویر"
+                    "GitHub API error"
                 );
             }
 
@@ -328,6 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         return false;
                     }
 
+
                     if (
                         excludedFiles.includes(
                             file.name
@@ -336,19 +420,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         return false;
                     }
 
+
                     const name =
                         file.name.toLowerCase();
 
+
                     return extensions.some(
-                        ext =>
-                            name.endsWith(ext)
+                        extension =>
+                            name.endsWith(
+                                extension
+                            )
                     );
+
                 });
 
 
-            /* ==============================
+            /* =================================
                حذف JPG در صورت وجود WebP
-            ============================== */
+            ================================= */
 
             const webpNames =
                 new Set(
@@ -426,13 +515,12 @@ document.addEventListener("DOMContentLoaded", () => {
             gallery.innerHTML = "";
 
 
-            /* ==============================
-               ایجاد تصاویر
-            ============================== */
+            /* =================================
+               ساخت تصاویر گالری
+            ================================= */
 
             images.forEach(
                 (file, index) => {
-
 
                     const picture =
                         document.createElement(
@@ -477,7 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
 
-                    /* کلیک روی عکس */
+                    /* بزرگنمایی گالری */
 
                     image.addEventListener(
                         "click",
@@ -486,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             openLightbox(
                                 image,
                                 "زاگرس چوب کیانشهر",
-                                "ZAGROS WOOD"
+                                "ZAGROS WOOD | نمونه کار و محصولات"
                             );
 
                         }
@@ -495,15 +583,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
-            /* تعداد عکس */
-
             console.log(
                 "تعداد تصاویر گالری:",
                 images.length
             );
 
-
-            /* هیچ عکس */
 
             if (
                 images.length === 0
@@ -520,7 +604,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
 
             console.error(
-                "خطا:",
+                "خطا در دریافت تصاویر:",
                 error
             );
 
