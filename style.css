@@ -120,7 +120,7 @@ button {
 
 
 /* =========================
-   اسلایدر اصلی
+   اسلایدر
 ========================= */
 
 .hero {
@@ -188,7 +188,7 @@ button {
 
 
 /* =========================
-   دکمه‌ها
+   دکمه عمومی
 ========================= */
 
 .btn {
@@ -212,7 +212,7 @@ button {
 
 
 /* =========================
-   بخش‌های عمومی
+   بخش‌ها
 ========================= */
 
 .section {
@@ -252,7 +252,7 @@ button {
 
 
 /* =========================
-   چهار مزیت
+   مزایا
 ========================= */
 
 .trust-section {
@@ -295,7 +295,7 @@ button {
 
 
 /* =========================
-   محصولات معمولی
+   خدمات
 ========================= */
 
 .services-grid {
@@ -356,6 +356,7 @@ button {
     overflow: hidden;
     box-shadow: 0 5px 18px rgba(60, 42, 26, .07);
     transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
 }
 
 .shop-card:hover {
@@ -668,9 +669,9 @@ button {
 }
 
 
-/* =========================
-   بزرگنمایی تصاویر
-========================= */
+/* ==================================================
+   پنجره بزرگنمایی
+================================================== */
 
 .image-lightbox {
     position: fixed;
@@ -679,62 +680,334 @@ button {
     height: 100%;
     background: rgba(0, 0, 0, .96);
     z-index: 99999;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 55px 10px 15px;
-    overflow: auto;
+
+    padding: 55px 10px 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    animation: lightboxFade .2s ease;
 }
+
+@keyframes lightboxFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   عکس معمولی بزرگ
+========================= */
 
 .image-lightbox .lightbox-main-image {
     display: block;
+
     width: auto !important;
     height: auto !important;
+
     max-width: 96vw !important;
     max-height: 78vh !important;
+
     object-fit: contain !important;
-    border-radius: 6px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, .75);
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, .75);
 }
+
+
+/* =========================
+   توضیحات معمولی
+========================= */
 
 .lightbox-info {
     width: min(800px, 94vw);
+
     text-align: center;
+
     margin-top: 12px;
+
     padding: 7px 15px;
+
     color: #fff;
 }
 
 .lightbox-info h3 {
     color: #fff;
+
     font-size: 22px;
+
     font-weight: bold;
+
     margin-bottom: 4px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, .7);
 }
 
 .lightbox-info p {
     color: #eee;
+
     font-size: 15px;
+
     line-height: 1.7;
 }
 
+
+/* ==================================================
+   ⭐ پنجره مخصوص محصولات فروشگاه
+================================================== */
+
+.product-lightbox {
+    width: min(900px, 94vw);
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    direction: rtl;
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, .55);
+
+    animation:
+        productOpen .25s ease;
+}
+
+@keyframes productOpen {
+
+    from {
+        opacity: 0;
+        transform: scale(.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================
+   عکس محصول بزرگ
+========================= */
+
+.product-lightbox-image {
+    min-height: 430px;
+
+    background: #f2eee9;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.product-lightbox-image img {
+    width: 100%;
+    height: 100%;
+
+    max-height: 500px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+}
+
+
+/* =========================
+   اطلاعات محصول
+========================= */
+
+.product-lightbox-content {
+    padding: 32px 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.product-lightbox-content h2 {
+    color: #513823;
+
+    font-size: 28px;
+
+    margin-bottom: 12px;
+}
+
+.product-lightbox-description {
+    color: #665d55;
+
+    font-size: 15px;
+
+    line-height: 2;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   مشخصات محصول
+========================= */
+
+.product-lightbox-meta {
+    padding: 12px 0;
+
+    margin-bottom: 15px;
+
+    border-top: 1px solid #eee7df;
+
+    border-bottom: 1px solid #eee7df;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.product-lightbox-meta span {
+    color: #796d61;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   قیمت
+========================= */
+
+.product-lightbox-price {
+    margin-bottom: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.product-lightbox-price strong {
+    color: #69472c;
+
+    font-size: 20px;
+}
+
+.product-lightbox-price small {
+    color: #9a8c7e;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   دکمه‌های محصول بزرگ
+========================= */
+
+.product-lightbox-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 110px;
+
+    gap: 8px;
+}
+
+.product-big-btn {
+    min-height: 46px;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+.product-big-btn:hover {
+    transform: translateY(-2px);
+}
+
+.product-big-btn.whatsapp {
+    background: #25d366;
+
+    color: #fff;
+}
+
+.product-big-btn.call {
+    background: #795334;
+
+    color: #fff;
+}
+
+
+/* =========================
+   دکمه بستن
+========================= */
+
 .lightbox-close {
     position: absolute;
+
     top: 10px;
+
     right: 15px;
+
     width: 48px;
+
     height: 48px;
+
     border: none;
+
     border-radius: 50%;
+
     background: #fff;
+
     color: #222;
+
     font-size: 34px;
+
     line-height: 44px;
+
     cursor: pointer;
+
     z-index: 100000;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, .4);
+
+    box-shadow:
+        0 3px 15px rgba(0, 0, 0, .4);
+
+    transition: .2s;
+}
+
+.lightbox-close:hover {
+    transform: rotate(90deg) scale(1.05);
+
+    background: #f1eee9;
 }
 
 
@@ -750,6 +1023,7 @@ button {
 
     .shop-grid {
         grid-template-columns: repeat(2, 1fr);
+
         gap: 13px;
     }
 
@@ -759,6 +1033,7 @@ button {
 
     .trust-grid {
         grid-template-columns: repeat(4, 1fr);
+
         gap: 7px;
     }
 
@@ -772,6 +1047,33 @@ button {
 
     .main-nav a {
         font-size: 13px;
+    }
+
+
+    /* محصول بزرگ در تبلت */
+
+    .product-lightbox {
+        width: min(700px, 94vw);
+
+        grid-template-columns: 1fr;
+    }
+
+    .product-lightbox-image {
+        min-height: 300px;
+
+        max-height: 360px;
+    }
+
+    .product-lightbox-image img {
+        max-height: 330px;
+    }
+
+    .product-lightbox-content {
+        padding: 22px;
+    }
+
+    .product-lightbox-content h2 {
+        font-size: 24px;
     }
 }
 
@@ -788,16 +1090,19 @@ button {
 
     .top-strip {
         font-size: 10px;
+
         padding: 5px;
     }
 
     .header-inner {
         min-height: 64px;
+
         gap: 8px;
     }
 
     .logo-link img {
         width: 48px;
+
         height: 48px;
     }
 
@@ -827,17 +1132,21 @@ button {
 
     .hero-content h2 {
         font-size: 23px;
+
         margin-bottom: 4px;
     }
 
     .hero-content p {
         font-size: 13px;
+
         margin-bottom: 10px;
     }
 
     .btn {
         min-height: 38px;
+
         padding: 6px 13px;
+
         font-size: 12px;
     }
 
@@ -847,6 +1156,7 @@ button {
 
     .section-title {
         font-size: 20px;
+
         margin-bottom: 18px;
     }
 
@@ -860,6 +1170,7 @@ button {
 
     .section-heading p {
         font-size: 10px;
+
         line-height: 1.7;
     }
 
@@ -872,11 +1183,13 @@ button {
 
     .trust-grid {
         grid-template-columns: repeat(4, 1fr);
+
         gap: 4px;
     }
 
     .trust-item {
         padding: 7px 3px;
+
         border-radius: 7px;
     }
 
@@ -893,6 +1206,7 @@ button {
 
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
+
         gap: 10px;
     }
 
@@ -910,6 +1224,7 @@ button {
 
     .service-content p {
         font-size: 11px;
+
         line-height: 1.55;
     }
 
@@ -918,6 +1233,7 @@ button {
 
     .shop-grid {
         grid-template-columns: repeat(2, 1fr);
+
         gap: 9px;
     }
 
@@ -935,17 +1251,21 @@ button {
 
     .shop-info h3 {
         font-size: 14px;
+
         margin-bottom: 3px;
     }
 
     .shop-description {
         font-size: 9px;
+
         line-height: 1.55;
+
         min-height: 55px;
     }
 
     .shop-meta {
         margin: 6px 0;
+
         padding: 6px 0;
     }
 
@@ -967,19 +1287,25 @@ button {
 
     .shop-actions {
         grid-template-columns: 1fr 48px;
+
         gap: 4px;
     }
 
     .shop-btn {
         min-height: 32px;
+
         font-size: 8px;
+
         border-radius: 6px;
     }
 
     .shop-badge {
         top: 6px;
+
         right: 6px;
+
         font-size: 8px;
+
         padding: 2px 6px;
     }
 
@@ -992,6 +1318,7 @@ button {
 
     .seo-text p {
         font-size: 13px;
+
         line-height: 1.8;
     }
 
@@ -1000,11 +1327,13 @@ button {
 
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
+
         gap: 8px;
     }
 
     .gallery-grid picture {
         height: 130px;
+
         border-radius: 8px;
     }
 
@@ -1017,6 +1346,7 @@ button {
 
     .contact-info p {
         font-size: 12px;
+
         line-height: 1.8;
     }
 
@@ -1025,6 +1355,7 @@ button {
 
     .map-section iframe {
         height: 210px;
+
         border-radius: 9px;
     }
 
@@ -1045,8 +1376,11 @@ button {
     .floating-call,
     .floating-whatsapp {
         width: 44px;
+
         height: 44px;
+
         bottom: 13px;
+
         font-size: 19px;
     }
 
@@ -1059,7 +1393,9 @@ button {
     }
 
 
-    /* بزرگنمایی */
+    /* =========================
+       پنجره معمولی موبایل
+    ========================= */
 
     .image-lightbox {
         padding: 58px 5px 12px;
@@ -1067,12 +1403,15 @@ button {
 
     .image-lightbox .lightbox-main-image {
         max-width: 98vw !important;
+
         max-height: 76vh !important;
     }
 
     .lightbox-info {
         width: 96vw;
+
         margin-top: 7px;
+
         padding: 5px 8px;
     }
 
@@ -1086,16 +1425,119 @@ button {
 
     .lightbox-close {
         top: 8px;
+
         right: 9px;
+
         width: 43px;
+
         height: 43px;
+
         font-size: 30px;
+    }
+
+
+    /* =========================
+       ⭐ پنجره محصول در موبایل
+    ========================= */
+
+    .product-lightbox {
+        width: 94vw;
+
+        max-height: 88vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        border-radius: 15px;
+
+        overflow-y: auto;
+    }
+
+    .product-lightbox-image {
+        width: 100%;
+
+        min-height: 220px;
+
+        height: 220px;
+
+        padding: 10px;
+
+        flex-shrink: 0;
+    }
+
+    .product-lightbox-image img {
+        width: 100%;
+
+        height: 200px;
+
+        max-height: 200px;
+
+        object-fit: contain;
+    }
+
+    .product-lightbox-content {
+        padding: 15px;
+
+        display: block;
+    }
+
+    .product-lightbox-content h2 {
+        font-size: 20px;
+
+        margin-bottom: 7px;
+    }
+
+    .product-lightbox-description {
+        font-size: 11px;
+
+        line-height: 1.8;
+
+        margin-bottom: 10px;
+    }
+
+    .product-lightbox-meta {
+        margin-bottom: 10px;
+
+        padding: 7px 0;
+
+        gap: 2px;
+    }
+
+    .product-lightbox-meta span {
+        font-size: 9px;
+    }
+
+    .product-lightbox-price {
+        margin-bottom: 10px;
+    }
+
+    .product-lightbox-price strong {
+        font-size: 15px;
+    }
+
+    .product-lightbox-price small {
+        font-size: 8px;
+    }
+
+    .product-lightbox-buttons {
+        grid-template-columns: 1fr 70px;
+
+        gap: 5px;
+    }
+
+    .product-big-btn {
+        min-height: 38px;
+
+        font-size: 9px;
+
+        border-radius: 7px;
     }
 }
 
 
 /* =========================
-   گوشی‌های خیلی کوچک
+   گوشی خیلی کوچک
 ========================= */
 
 @media (max-width: 380px) {
@@ -1132,6 +1574,9 @@ button {
         font-size: 11px;
     }
 
+
+    /* فروشگاه */
+
     .shop-grid {
         gap: 7px;
     }
@@ -1150,6 +1595,7 @@ button {
 
     .shop-description {
         font-size: 8px;
+
         min-height: 50px;
     }
 
@@ -1163,8 +1609,12 @@ button {
 
     .shop-btn {
         min-height: 30px;
+
         font-size: 7px;
     }
+
+
+    /* بزرگنمایی */
 
     .image-lightbox .lightbox-main-image {
         max-height: 72vh !important;
@@ -1177,17 +1627,70 @@ button {
     .lightbox-info p {
         font-size: 11px;
     }
+
+
+    /* پنجره محصول */
+
+    .product-lightbox {
+        width: 95vw;
+
+        max-height: 90vh;
+    }
+
+    .product-lightbox-image {
+        height: 190px;
+
+        min-height: 190px;
+    }
+
+    .product-lightbox-image img {
+        height: 175px;
+
+        max-height: 175px;
+    }
+
+    .product-lightbox-content {
+        padding: 12px;
+    }
+
+    .product-lightbox-content h2 {
+        font-size: 18px;
+    }
+
+    .product-lightbox-description {
+        font-size: 9px;
+    }
+
+    .product-lightbox-meta span {
+        font-size: 8px;
+    }
+
+    .product-lightbox-price strong {
+        font-size: 13px;
+    }
+
+    .product-big-btn {
+        min-height: 35px;
+
+        font-size: 8px;
+    }
 }
 
 
 /* =========================
-   دسترسی و کاهش حرکت
+   دسترسی
 ========================= */
 
 :focus-visible {
     outline: 3px solid #a47b52;
+
     outline-offset: 3px;
 }
+
+
+/* =========================
+   کاهش حرکت
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1199,6 +1702,7 @@ button {
     *::before,
     *::after {
         transition: none !important;
+
         animation: none !important;
     }
 }
