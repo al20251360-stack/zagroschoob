@@ -755,3 +755,31 @@ a {
         animation: none !important;
     }
 }
+.gallery-grid picture {
+  display: block;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.gallery-grid picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+  .gallery-grid picture {
+    height: 115px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .gallery-grid picture {
+    height: 100px;
+  }
+}
