@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slide");
 
     if (slides.length > 1) {
-
         let currentSlide = 0;
 
         function showSlide(index) {
@@ -26,230 +25,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       بزرگنمایی تصاویر
+       پنجره بزرگنمایی
     ========================= */
 
     let lightbox = null;
     let lightboxOpen = false;
-    let ignoreNextPopState = false;
 
-
-    function closeLightbox() {
-
-        if (!lightbox) return;
-
-        lightbox.remove();
-
-        lightbox = null;
-        lightboxOpen = false;
-
-        document.body.style.overflow = "";
-
-        if (window.location.hash === "#image-preview") {
-
-            ignoreNextPopState = true;
-
-            history.back();
-        }
-    }
-
-
-    function openLightbox(image, title, description) {
+    function createLightbox(content) {
 
         if (lightbox) {
-
             lightbox.remove();
-
-            lightbox = null;
         }
+
+        lightbox = document.createElement("div");
+        lightbox.className = "image-lightbox";
+
+        lightbox.innerHTML = content;
+
+        document.body.appendChild(lightbox);
+
+        document.body.style.overflow = "hidden";
 
         lightboxOpen = true;
 
-        lightbox = document.createElement("div");
-
-        lightbox.className = "image-lightbox";
-
-
-        /* عکس بزرگ */
-
-        const bigImage = document.createElement("img");
-
-        bigImage.src =
-            image.currentSrc ||
-            image.src;
-
-        bigImage.alt =
-            image.alt ||
-            title ||
-            "زاگرس چوب کیانشهر";
-
-        bigImage.className =
-            "lightbox-main-image";
-
-
-        /* اطلاعات محصول */
-
-        const info = document.createElement("div");
-
-        info.className =
-            "lightbox-info";
-
-
-        if (title) {
-
-            const titleElement =
-                document.createElement("h3");
-
-            titleElement.textContent =
-                title;
-
-            info.appendChild(titleElement);
-        }
-
-
-        if (description) {
-
-            const descriptionElement =
-                document.createElement("p");
-
-            descriptionElement.textContent =
-                description;
-
-            info.appendChild(descriptionElement);
-        }
-
-
-        /* دکمه بستن */
-
-        const closeButton =
-            document.createElement("button");
-
-        closeButton.type =
-            "button";
-
-        closeButton.className =
-            "lightbox-close";
-
-        closeButton.textContent =
-            "×";
-
-        closeButton.setAttribute(
-            "aria-label",
-            "بستن تصویر"
-        );
-
-
-        /* ساخت پنجره */
-
-        lightbox.appendChild(
-            bigImage
-        );
-
-        if (title || description) {
-
-            lightbox.appendChild(
-                info
-            );
-        }
-
-        lightbox.appendChild(
-            closeButton
-        );
-
-        document.body.appendChild(
-            lightbox
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-
-        /* تغییر آدرس برای دکمه Back */
-
         history.pushState(
-            { imagePreview: true },
+            { preview: true },
             "",
             "#image-preview"
         );
 
+        const closeButton =
+            lightbox.querySelector(".lightbox-close");
 
-        /* بستن با ضربدر */
+        if (closeButton) {
+            closeButton.addEventListener("click", () => {
+                history.back();
+            });
+        }
 
-        closeButton.addEventListener(
-            "click",
-            () => {
+        lightbox.addEventListener("click", (event) => {
 
+            if (event.target === lightbox) {
                 history.back();
             }
-        );
 
-
-        /* بستن با لمس فضای خالی */
-
-        lightbox.addEventListener(
-            "click",
-            (event) => {
-
-                if (
-                    event.target === lightbox
-                ) {
-
-                    history.back();
-                }
-            }
-        );
+        });
     }
 
 
     /* =========================
-       دکمه Back گوشی
+       بستن پنجره
     ========================= */
 
-    window.addEventListener(
-        "popstate",
-        () => {
+    window.addEventListener("popstate", () => {
 
-            if (ignoreNextPopState) {
-
-                ignoreNextPopState = false;
-
-                return;
-            }
-
-            if (lightboxOpen) {
-
-                if (lightbox) {
-
-                    lightbox.remove();
-                }
-
-                lightbox = null;
-
-                lightboxOpen = false;
-
-                document.body.style.overflow = "";
-            }
+        if (!lightboxOpen) {
+            return;
         }
-    );
+
+        if (lightbox) {
+            lightbox.remove();
+        }
+
+        lightbox = null;
+
+        lightboxOpen = false;
+
+        document.body.style.overflow = "";
+    });
 
 
     /* =========================
-       کلید Escape
+       Escape
     ========================= */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+    document.addEventListener("keydown", (event) => {
 
-            if (
-                event.key === "Escape" &&
-                lightboxOpen
-            ) {
-
-                history.back();
-            }
+        if (
+            event.key === "Escape" &&
+            lightboxOpen
+        ) {
+            history.back();
         }
-    );
+
+    });
 
 
     /* =========================
@@ -257,30 +116,50 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const logo =
-        document.querySelector(
-            ".logo-link img"
-        );
+        document.querySelector(".logo-link img");
 
     if (logo) {
 
-        logo.style.cursor =
-            "zoom-in";
+        logo.style.cursor = "zoom-in";
 
-        logo.addEventListener(
-            "click",
-            (event) => {
+        logo.addEventListener("click", (event) => {
 
-                event.preventDefault();
+            event.preventDefault();
 
-                event.stopPropagation();
+            event.stopPropagation();
 
-                openLightbox(
-                    logo,
-                    "زاگرس چوب کیانشهر",
-                    "ZAGROS WOOD"
-                );
-            }
-        );
+            const src =
+                logo.currentSrc ||
+                logo.src;
+
+            createLightbox(`
+                <img
+                    class="lightbox-main-image"
+                    src="${src}"
+                    alt="زاگرس چوب کیانشهر"
+                >
+
+                <div class="lightbox-info">
+
+                    <h3>
+                        زاگرس چوب کیانشهر
+                    </h3>
+
+                    <p>
+                        ZAGROS WOOD
+                    </p>
+
+                </div>
+
+                <button
+                    class="lightbox-close"
+                    type="button"
+                >
+                    ×
+                </button>
+            `);
+
+        });
     }
 
 
@@ -288,109 +167,247 @@ document.addEventListener("DOMContentLoaded", () => {
        محصولات معمولی
     ========================= */
 
-    const serviceCards =
-        document.querySelectorAll(
-            ".service-card"
-        );
-
-    serviceCards.forEach(
-        (card) => {
+    document
+        .querySelectorAll(".service-card")
+        .forEach(card => {
 
             const image =
-                card.querySelector(
-                    ".service-image"
-                );
-
-            const title =
-                card.querySelector("h3");
-
-            const description =
-                card.querySelector("p");
+                card.querySelector(".service-image");
 
             if (!image) return;
 
-            image.style.cursor =
-                "zoom-in";
+            image.addEventListener("click", event => {
 
-            image.addEventListener(
-                "click",
-                (event) => {
+                event.preventDefault();
 
-                    event.preventDefault();
+                event.stopPropagation();
 
-                    event.stopPropagation();
+                const src =
+                    image.currentSrc ||
+                    image.src;
 
-                    openLightbox(
-                        image,
-                        title
-                            ? title.textContent.trim()
-                            : "زاگرس چوب کیانشهر",
+                const title =
+                    card.querySelector("h3")?.textContent.trim()
+                    || "محصول زاگرس چوب";
 
-                        description
-                            ? description.textContent.trim()
-                            : "ZAGROS WOOD"
-                    );
-                }
-            );
-        }
-    );
+                const description =
+                    card.querySelector("p")?.textContent.trim()
+                    || "زاگرس چوب کیانشهر";
+
+                createLightbox(`
+                    <img
+                        class="lightbox-main-image"
+                        src="${src}"
+                        alt="${title}"
+                    >
+
+                    <div class="lightbox-info">
+
+                        <h3>
+                            ${title}
+                        </h3>
+
+                        <p>
+                            ${description}
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="lightbox-close"
+                        type="button"
+                    >
+                        ×
+                    </button>
+                `);
+
+            });
+
+        });
 
 
     /* =========================
-       محصولات فروشگاه
-       مهم: این قسمت مشکل قبلی را حل می‌کند
+       ⭐ محصولات فروشگاه
+       بزرگنمایی کل محصول
     ========================= */
 
-    const shopCards =
-        document.querySelectorAll(
-            ".shop-card"
-        );
+    document
+        .querySelectorAll(".shop-card")
+        .forEach(card => {
 
-    shopCards.forEach(
-        (card) => {
-
-            const image =
-                card.querySelector(
-                    ".service-image"
-                );
-
-            const title =
-                card.querySelector("h3");
-
-            const description =
-                card.querySelector(
-                    ".shop-description"
-                );
-
-            if (!image) return;
-
-            image.style.cursor =
-                "zoom-in";
+            card.style.cursor = "pointer";
 
 
-            image.addEventListener(
-                "click",
-                (event) => {
+            card.addEventListener("click", event => {
 
-                    event.preventDefault();
+                /*
+                 * اگر روی دکمه واتساپ یا تماس زدیم،
+                 * پنجره بزرگ باز نشود.
+                 */
 
-                    event.stopPropagation();
-
-                    openLightbox(
-                        image,
-
-                        title
-                            ? title.textContent.trim()
-                            : "زاگرس چوب کیانشهر",
-
-                        description
-                            ? description.textContent.trim()
-                            : "محصولات زاگرس چوب"
-                    );
+                if (
+                    event.target.closest(".shop-btn") ||
+                    event.target.closest("a")
+                ) {
+                    return;
                 }
-            );
-        }
-    );
+
+
+                const image =
+                    card.querySelector(".service-image");
+
+                const title =
+                    card.querySelector("h3");
+
+                const description =
+                    card.querySelector(".shop-description");
+
+                const meta =
+                    card.querySelector(".shop-meta");
+
+                const price =
+                    card.querySelector(".shop-price");
+
+
+                if (!image) return;
+
+
+                const src =
+                    image.currentSrc ||
+                    image.src;
+
+
+                const titleText =
+                    title
+                        ? title.textContent.trim()
+                        : "محصول زاگرس چوب";
+
+
+                const descriptionText =
+                    description
+                        ? description.textContent.trim()
+                        : "";
+
+
+                const metaHTML =
+                    meta
+                        ? meta.innerHTML
+                        : "";
+
+
+                const priceHTML =
+                    price
+                        ? price.innerHTML
+                        : "";
+
+
+                /*
+                 * لینک واتساپ محصول
+                 */
+
+                const whatsapp =
+                    card.querySelector(
+                        ".shop-btn.whatsapp"
+                    );
+
+
+                const whatsappHref =
+                    whatsapp
+                        ? whatsapp.href
+                        : "https://wa.me/989129053421";
+
+
+                /*
+                 * لینک تماس
+                 */
+
+                const call =
+                    card.querySelector(
+                        ".shop-btn.call"
+                    );
+
+
+                const callHref =
+                    call
+                        ? call.href
+                        : "tel:02133615748";
+
+
+                createLightbox(`
+
+                    <div class="product-lightbox">
+
+                        <div class="product-lightbox-image">
+
+                            <img
+                                src="${src}"
+                                alt="${titleText}"
+                            >
+
+                        </div>
+
+
+                        <div class="product-lightbox-content">
+
+                            <h2>
+                                ${titleText}
+                            </h2>
+
+
+                            <p class="product-lightbox-description">
+                                ${descriptionText}
+                            </p>
+
+
+                            <div class="product-lightbox-meta">
+                                ${metaHTML}
+                            </div>
+
+
+                            <div class="product-lightbox-price">
+                                ${priceHTML}
+                            </div>
+
+
+                            <div class="product-lightbox-buttons">
+
+                                <a
+                                    href="${whatsappHref}"
+                                    target="_blank"
+                                    rel="noopener"
+                                    class="product-big-btn whatsapp"
+                                >
+                                    💬 استعلام واتساپ
+                                </a>
+
+
+                                <a
+                                    href="${callHref}"
+                                    class="product-big-btn call"
+                                >
+                                    📞 تماس
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="lightbox-close"
+                        type="button"
+                        aria-label="بستن"
+                    >
+                        ×
+                    </button>
+
+                `);
+
+            });
+
+        });
 
 
     /* =========================
@@ -398,9 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const gallery =
-        document.querySelector(
-            ".gallery-grid"
-        );
+        document.querySelector(".gallery-grid");
 
     if (!gallery) return;
 
@@ -427,194 +442,189 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => {
 
             if (!response.ok) {
-
-                throw new Error(
-                    "GitHub API error"
-                );
+                throw new Error("GitHub API error");
             }
 
             return response.json();
+
         })
 
         .then(files => {
 
             let images =
-                files.filter(
-                    file => {
+                files.filter(file => {
 
-                        if (
-                            file.type !==
-                            "file"
-                        ) {
-                            return false;
-                        }
-
-                        if (
-                            excludedFiles.includes(
-                                file.name
-                            )
-                        ) {
-                            return false;
-                        }
-
-                        const name =
-                            file.name.toLowerCase();
-
-                        return extensions.some(
-                            extension =>
-                                name.endsWith(
-                                    extension
-                                )
-                        );
+                    if (file.type !== "file") {
+                        return false;
                     }
-                );
+
+                    if (
+                        excludedFiles.includes(
+                            file.name
+                        )
+                    ) {
+                        return false;
+                    }
+
+                    const name =
+                        file.name.toLowerCase();
+
+                    return extensions.some(
+                        extension =>
+                            name.endsWith(extension)
+                    );
+
+                });
 
 
-            /* جلوگیری از نمایش
-               JPG و WebP تکراری */
+            /* حذف عکس‌های تکراری JPG/WebP */
 
             const webpNames =
                 new Set(
 
                     images
 
-                        .filter(
-                            file =>
-                                file.name
-                                    .toLowerCase()
-                                    .endsWith(
-                                        ".webp"
-                                    )
+                        .filter(file =>
+                            file.name
+                                .toLowerCase()
+                                .endsWith(".webp")
                         )
 
-                        .map(
-                            file =>
-                                file.name
-                                    .toLowerCase()
-                                    .replace(
-                                        ".webp",
-                                        ""
-                                    )
+                        .map(file =>
+                            file.name
+                                .toLowerCase()
+                                .replace(".webp", "")
                         )
+
                 );
 
 
             images =
-                images.filter(
-                    file => {
+                images.filter(file => {
 
-                        const name =
-                            file.name
-                                .toLowerCase();
+                    const name =
+                        file.name.toLowerCase();
+
+
+                    if (
+                        name.endsWith(".jpg") ||
+                        name.endsWith(".jpeg")
+                    ) {
+
+                        const baseName =
+                            name.replace(
+                                /\.(jpg|jpeg)$/,
+                                ""
+                            );
 
 
                         if (
-                            name.endsWith(
-                                ".jpg"
-                            ) ||
-                            name.endsWith(
-                                ".jpeg"
+                            webpNames.has(
+                                baseName
                             )
                         ) {
-
-                            const baseName =
-                                name.replace(
-                                    /\.(jpg|jpeg)$/,
-                                    ""
-                                );
-
-                            if (
-                                webpNames.has(
-                                    baseName
-                                )
-                            ) {
-
-                                return false;
-                            }
+                            return false;
                         }
 
-                        return true;
                     }
-                );
+
+                    return true;
+
+                });
 
 
-            /* مرتب‌سازی */
-
-            images.sort(
-                (a, b) =>
-                    a.name.localeCompare(
-                        b.name,
-                        "fa",
-                        {
-                            numeric: true,
-                            sensitivity: "base"
-                        }
-                    )
+            images.sort((a, b) =>
+                a.name.localeCompare(
+                    b.name,
+                    "fa",
+                    {
+                        numeric: true,
+                        sensitivity: "base"
+                    }
+                )
             );
 
 
             gallery.innerHTML = "";
 
 
-            /* ساخت گالری */
+            images.forEach((file, index) => {
 
-            images.forEach(
-                (file, index) => {
-
-                    const picture =
-                        document.createElement(
-                            "picture"
-                        );
-
-                    const image =
-                        document.createElement(
-                            "img"
-                        );
-
-
-                    image.src =
-                        file.download_url;
-
-
-                    image.alt =
-                        "زاگرس چوب کیانشهر - نمونه کار " +
-                        (index + 1);
-
-
-                    image.loading =
-                        "lazy";
-
-
-                    image.decoding =
-                        "async";
-
-
-                    image.className =
-                        "gallery-image";
-
-
-                    picture.appendChild(
-                        image
-                    );
-
-                    gallery.appendChild(
-                        picture
+                const picture =
+                    document.createElement(
+                        "picture"
                     );
 
 
-                    image.addEventListener(
-                        "click",
-                        () => {
-
-                            openLightbox(
-                                image,
-                                "زاگرس چوب کیانشهر",
-                                "ZAGROS WOOD | نمونه کار و محصولات"
-                            );
-                        }
+                const image =
+                    document.createElement(
+                        "img"
                     );
-                }
-            );
+
+
+                image.src =
+                    file.download_url;
+
+
+                image.alt =
+                    "زاگرس چوب کیانشهر - نمونه کار " +
+                    (index + 1);
+
+
+                image.loading =
+                    "lazy";
+
+
+                image.decoding =
+                    "async";
+
+
+                image.className =
+                    "gallery-image";
+
+
+                picture.appendChild(image);
+
+                gallery.appendChild(picture);
+
+
+                image.addEventListener(
+                    "click",
+                    () => {
+
+                        createLightbox(`
+
+                            <img
+                                class="lightbox-main-image"
+                                src="${image.currentSrc || image.src}"
+                                alt="${image.alt}"
+                            >
+
+                            <div class="lightbox-info">
+
+                                <h3>
+                                    زاگرس چوب کیانشهر
+                                </h3>
+
+                                <p>
+                                    ZAGROS WOOD | نمونه کار و محصولات
+                                </p>
+
+                            </div>
+
+                            <button
+                                class="lightbox-close"
+                                type="button"
+                            >
+                                ×
+                            </button>
+
+                        `);
+
+                    }
+                );
+
+            });
 
 
             console.log(
@@ -623,12 +633,11 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            if (
-                images.length === 0
-            ) {
+            if (images.length === 0) {
 
                 gallery.innerHTML =
                     "<p class='gallery-error'>تصویری برای نمایش پیدا نشد.</p>";
+
             }
 
         })
@@ -642,6 +651,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             gallery.innerHTML =
                 "<p class='gallery-error'>در بارگذاری تصاویر مشکلی پیش آمد.</p>";
+
         });
 
 });
